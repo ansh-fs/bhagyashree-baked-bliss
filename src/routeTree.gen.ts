@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as ProcessRouteImport } from './routes/process'
+import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as DistributorsRouteImport } from './routes/distributors'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -23,6 +24,11 @@ const ProductsRoute = ProductsRouteImport.update({
 const ProcessRoute = ProcessRouteImport.update({
   id: '/process',
   path: '/process',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GalleryRoute = GalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DistributorsRoute = DistributorsRouteImport.update({
@@ -45,6 +51,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/distributors': typeof DistributorsRoute
+  '/gallery': typeof GalleryRoute
   '/process': typeof ProcessRoute
   '/products': typeof ProductsRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/distributors': typeof DistributorsRoute
+  '/gallery': typeof GalleryRoute
   '/process': typeof ProcessRoute
   '/products': typeof ProductsRoute
 }
@@ -60,21 +68,36 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/distributors': typeof DistributorsRoute
+  '/gallery': typeof GalleryRoute
   '/process': typeof ProcessRoute
   '/products': typeof ProductsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/distributors' | '/process' | '/products'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/distributors'
+    | '/gallery'
+    | '/process'
+    | '/products'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/distributors' | '/process' | '/products'
-  id: '__root__' | '/' | '/about' | '/distributors' | '/process' | '/products'
+  to: '/' | '/about' | '/distributors' | '/gallery' | '/process' | '/products'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/distributors'
+    | '/gallery'
+    | '/process'
+    | '/products'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   DistributorsRoute: typeof DistributorsRoute
+  GalleryRoute: typeof GalleryRoute
   ProcessRoute: typeof ProcessRoute
   ProductsRoute: typeof ProductsRoute
 }
@@ -93,6 +116,13 @@ declare module '@tanstack/react-router' {
       path: '/process'
       fullPath: '/process'
       preLoaderRoute: typeof ProcessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gallery': {
+      id: '/gallery'
+      path: '/gallery'
+      fullPath: '/gallery'
+      preLoaderRoute: typeof GalleryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/distributors': {
@@ -123,6 +153,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   DistributorsRoute: DistributorsRoute,
+  GalleryRoute: GalleryRoute,
   ProcessRoute: ProcessRoute,
   ProductsRoute: ProductsRoute,
 }
