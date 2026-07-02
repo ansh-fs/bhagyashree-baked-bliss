@@ -9,8 +9,6 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -32,54 +30,58 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
+  --color-brand: var(--brand);
+  --color-brand-dark: var(--brand-dark);
+  --color-gold: var(--gold);
+  --color-flour: var(--flour);
+  --color-ink: var(--ink);
+  --color-crust: var(--crust);
   --color-cream: var(--cream);
-  --color-wheat: var(--wheat);
-  --color-wheat-deep: var(--wheat-deep);
-  --color-bark: var(--bark);
-  --color-bark-soft: var(--bark-soft);
 
-  --font-display: "Fraunces", Georgia, serif;
+  --font-display: "Archivo", system-ui, sans-serif;
   --font-sans: "Inter", system-ui, sans-serif;
 }
 
 :root {
-  --radius: 0.75rem;
+  --radius: 0.375rem;
 
-  --background: oklch(0.99 0.005 85);
-  --foreground: oklch(0.22 0.03 50);
+  /* Brand palette — grounded in Indian FMCG bakery packaging language.
+     #C8102E  — Brand red: appetite-driving, the signal color mass-market
+                bread and biscuit brands (Britannia, Modern, Parle) use on pack.
+     #A00D24  — Deeper red for hover/pressed states and heavy type on light bg.
+     #E8A317  — Wheat gold: crust/toast tone, warm without being decorative.
+     #FAF7F2  — Flour white: honest off-white, not a designer cream gradient.
+     #F1EADA  — Cream: subtle section separator, printed-paper feel.
+     #14110F  — Ink: near-black charcoal for confident, packaging-grade type. */
+  --brand: #C8102E;
+  --brand-dark: #A00D24;
+  --gold: #E8A317;
+  --flour: #FAF7F2;
+  --cream: #F1EADA;
+  --ink: #14110F;
+  --crust: #6B3410;
 
-  --cream: oklch(0.97 0.015 85);
-  --wheat: oklch(0.82 0.11 75);
-  --wheat-deep: oklch(0.68 0.13 65);
-  --bark: oklch(0.28 0.04 45);
-  --bark-soft: oklch(0.42 0.05 50);
+  --background: #FAF7F2;
+  --foreground: #14110F;
 
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.22 0.03 50);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.22 0.03 50);
+  --card: #FFFFFF;
+  --card-foreground: #14110F;
+  --popover: #FFFFFF;
+  --popover-foreground: #14110F;
 
-  --primary: oklch(0.28 0.04 45);
-  --primary-foreground: oklch(0.98 0.01 85);
-  --secondary: oklch(0.95 0.02 85);
-  --secondary-foreground: oklch(0.28 0.04 45);
-  --muted: oklch(0.95 0.015 85);
-  --muted-foreground: oklch(0.5 0.03 55);
-  --accent: oklch(0.82 0.11 75);
-  --accent-foreground: oklch(0.22 0.03 45);
-  --destructive: oklch(0.55 0.22 27);
-  --destructive-foreground: oklch(0.98 0.01 85);
-  --border: oklch(0.9 0.02 80);
-  --input: oklch(0.92 0.015 80);
-  --ring: oklch(0.68 0.13 65);
-
-  --gradient-warm: linear-gradient(135deg, oklch(0.82 0.11 75) 0%, oklch(0.68 0.13 65) 100%);
-  --gradient-cream: linear-gradient(180deg, oklch(0.99 0.005 85) 0%, oklch(0.96 0.02 80) 100%);
-  --gradient-dark: linear-gradient(135deg, oklch(0.28 0.04 45) 0%, oklch(0.18 0.03 40) 100%);
-
-  --shadow-soft: 0 4px 24px -8px oklch(0.28 0.04 45 / 0.12);
-  --shadow-elegant: 0 20px 60px -20px oklch(0.28 0.04 45 / 0.25);
-  --shadow-glow: 0 8px 40px -8px oklch(0.68 0.13 65 / 0.35);
+  --primary: #C8102E;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F1EADA;
+  --secondary-foreground: #14110F;
+  --muted: #F1EADA;
+  --muted-foreground: #5C554C;
+  --accent: #E8A317;
+  --accent-foreground: #14110F;
+  --destructive: #A00D24;
+  --destructive-foreground: #FFFFFF;
+  --border: #E4DED0;
+  --input: #E4DED0;
+  --ring: #C8102E;
 }
 
 @layer base {
@@ -93,39 +95,38 @@
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    letter-spacing: -0.02em;
+    font-weight: 800;
+    letter-spacing: -0.015em;
+    line-height: 1.05;
   }
 }
 
-@utility glass {
-  background: color-mix(in oklab, white 70%, transparent);
-  backdrop-filter: blur(16px) saturate(140%);
-  border: 1px solid color-mix(in oklab, white 60%, transparent);
+/* Photo placeholder block — used until real factory/product photos are provided. */
+@utility photo-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      #EFE7D4 0 12px,
+      #E7DDC4 12px 24px
+    );
+  color: #5C554C;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px dashed #B9AF95;
+  border-radius: var(--radius);
 }
 
-@utility glass-dark {
-  background: color-mix(in oklab, oklch(0.28 0.04 45) 60%, transparent);
-  backdrop-filter: blur(20px) saturate(140%);
-  border: 1px solid color-mix(in oklab, oklch(0.82 0.11 75) 20%, transparent);
+@utility rule-red {
+  display: inline-block;
+  width: 2.5rem;
+  height: 3px;
+  background: var(--brand);
 }
-
-@keyframes fade-up {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-@keyframes scale-in {
-  from { opacity: 0; transform: scale(0.96); }
-  to { opacity: 1; transform: scale(1); }
-}
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-@utility animate-fade-up { animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
-@utility animate-fade-in { animation: fade-in 1s ease-out both; }
-@utility animate-scale-in { animation: scale-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }

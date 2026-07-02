@@ -1,228 +1,157 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useState } from "react";
 import {
-  Wheat, ShieldCheck, Truck, Factory, Sparkles, ArrowRight, MapPin, Phone, Mail,
-  CheckCircle2, Beaker, Package, Clock, Award, Leaf, Menu, X,
+  Phone, Mail, MapPin, ShieldCheck, Factory, Truck, Store,
+  Hotel, Building2, ShoppingBag, CheckCircle2, Menu, X, ArrowRight,
 } from "lucide-react";
-
-import heroFactory from "@/assets/hero-factory.jpg";
-import qualityFacility from "@/assets/quality-facility.jpg";
-import milkBread from "@/assets/milk-bread.jpg";
-import brownBread from "@/assets/brown-bread.jpg";
-import sandwichBread from "@/assets/sandwich-bread.jpg";
-import premiumBread from "@/assets/premium-bread.jpg";
-import rusk from "@/assets/rusk.jpg";
-import toast from "@/assets/toast.jpg";
-import cookies from "@/assets/cookies.jpg";
-import snacks from "@/assets/snacks.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Bhagyashree Food Products | Premium Bread Manufacturer in Moradabad" },
-      { name: "description", content: "Leading bread & bakery manufacturer in Moradabad, UP. Fresh bread, rusk, cookies and bakery products delivered daily to retailers and distributors." },
-      { property: "og:title", content: "Bhagyashree Food Products — Freshness Baked Every Day" },
-      { property: "og:description", content: "Premium bread & bakery manufacturer serving Uttar Pradesh." },
+      { title: "Bhagyashree Food Products — Wholesale Bread, Rusk, Buns & Biscuit Manufacturer, Moradabad" },
+      { name: "description", content: "Moradabad-based wholesale bakery supplying bread, rusk, buns and biscuits daily to retailers, distributors, super markets, hotels and institutions across Uttar Pradesh. Est. 2012. FSSAI & MSME registered." },
+      { property: "og:title", content: "Bhagyashree Food Products — Wholesale Bakery Manufacturer" },
+      { property: "og:description", content: "Daily bread, rusk, buns and biscuits for retailers, distributors and institutions across UP. Est. 2012, 24/7 production." },
     ],
   }),
   component: Index,
 });
 
-function Reveal({ children, delay = 0, className = "" }: { children: ReactNode; delay?: number; className?: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
-      { threshold: 0.15 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
+const BUSINESS = {
+  name: "Bhagyashree Food Products",
+  phone: "+91 92195 35111",
+  phoneRaw: "+919219535111",
+  email: "info@bhagyashreefoodproducts.com",
+  address: "Khasra No. 622, Khushalpur Road, Sahapur Tigre, Delhi Road, Moradabad, Uttar Pradesh — 244001",
+  gstin: "09AAMFB2738E1ZG",
+  udyam: "UDYAM-UP-59-0006744",
+  fssai: "12718060000582",
+  since: "2012",
+};
+
+const PRODUCT_GROUPS = [
+  {
+    title: "Bread",
+    items: ["Milk Bread", "Brown Bread", "Multigrain Bread", "Sandwich Bread", "Garlic Bread"],
+  },
+  {
+    title: "Rusk & Toast",
+    items: ["Elachi Rusk", "Suji Rusk", "Milk Rusk", "Crispy Rusk Toast"],
+  },
+  {
+    title: "Buns",
+    items: ["Mini Buns", "Sweet Bun", "Mini Burger Bite Buns"],
+  },
+  {
+    title: "Biscuits",
+    items: ["Salty Bakery Biscuit", "Sweet Bakery Biscuit"],
+  },
+];
+
+function Index() {
+  const [navOpen, setNavOpen] = useState(false);
   return (
-    <div
-      ref={ref}
-      className={className}
-      style={{
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(28px)",
-        transition: `opacity 0.9s cubic-bezier(0.16,1,0.3,1) ${delay}ms, transform 0.9s cubic-bezier(0.16,1,0.3,1) ${delay}ms`,
-      }}
-    >
-      {children}
+    <div className="min-h-screen bg-flour text-ink">
+      <Nav open={navOpen} setOpen={setNavOpen} />
+      <Hero />
+      <TrustStrip />
+      <About />
+      <Products />
+      <Wholesale />
+      <Process />
+      <Quality />
+      <Clients />
+      <Contact />
+      <Footer />
     </div>
   );
 }
 
-function Nav() {
-  const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    onScroll();
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+/* ---------- NAV ---------- */
+function Nav({ open, setOpen }: { open: boolean; setOpen: (v: boolean) => void }) {
   const links = [
-    { href: "#about", label: "About" },
-    { href: "#products", label: "Products" },
-    { href: "#process", label: "Process" },
-    { href: "#quality", label: "Quality" },
-    { href: "#contact", label: "Contact" },
+    ["About", "#about"],
+    ["Products", "#products"],
+    ["Wholesale", "#wholesale"],
+    ["Process", "#process"],
+    ["Quality", "#quality"],
+    ["Contact", "#contact"],
   ];
   return (
-    <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
-        scrolled ? "py-3" : "py-5"
-      }`}
-    >
-      <div className={`mx-auto max-w-7xl px-5 transition-all duration-500 ${scrolled ? "" : ""}`}>
-        <div className={`flex items-center justify-between rounded-2xl px-5 py-3 transition-all duration-500 ${
-          scrolled ? "glass shadow-[var(--shadow-soft)]" : ""
-        }`}>
-          <a href="#top" className="flex items-center gap-2.5">
-            <div className="grid h-10 w-10 place-items-center rounded-xl bg-[var(--gradient-warm)] shadow-[var(--shadow-glow)]">
-              <Wheat className="h-5 w-5 text-bark" strokeWidth={2.2} />
-            </div>
-            <div className="leading-tight">
-              <div className="font-display text-base font-semibold text-bark">Bhagyashree</div>
-              <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Food Products</div>
-            </div>
-          </a>
-          <nav className="hidden md:flex items-center gap-8">
-            {links.map((l) => (
-              <a key={l.href} href={l.href} className="text-sm text-bark-soft hover:text-bark transition-colors">
-                {l.label}
-              </a>
-            ))}
-          </nav>
-          <a href="#contact" className="hidden md:inline-flex items-center gap-1.5 rounded-full bg-bark px-5 py-2.5 text-sm font-medium text-cream hover:bg-bark-soft transition-colors">
-            Get in touch <ArrowRight className="h-3.5 w-3.5" />
-          </a>
-          <button onClick={() => setOpen(!open)} className="md:hidden text-bark" aria-label="Menu">
-            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-        </div>
-        {open && (
-          <div className="md:hidden mt-2 glass rounded-2xl p-5 animate-fade-in">
-            <div className="flex flex-col gap-4">
-              {links.map((l) => (
-                <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="text-bark-soft hover:text-bark">
-                  {l.label}
-                </a>
-              ))}
-              <a href="#contact" onClick={() => setOpen(false)} className="rounded-full bg-bark px-5 py-2.5 text-sm text-cream text-center">
-                Get in touch
-              </a>
-            </div>
-          </div>
-        )}
+    <header className="sticky top-0 z-50 bg-flour border-b border-border">
+      <div className="max-w-7xl mx-auto px-5 lg:px-8 h-16 flex items-center justify-between">
+        <a href="#top" className="flex items-center gap-2.5">
+          <span className="w-9 h-9 grid place-items-center bg-brand text-white font-display font-black text-lg rounded-sm">B</span>
+          <span className="font-display font-extrabold text-[15px] leading-tight tracking-tight">
+            Bhagyashree<br /><span className="text-[11px] font-semibold tracking-widest text-muted-foreground uppercase">Food Products</span>
+          </span>
+        </a>
+        <nav className="hidden lg:flex items-center gap-7 text-sm font-medium">
+          {links.map(([l, h]) => (
+            <a key={h} href={h} className="hover:text-brand transition-colors">{l}</a>
+          ))}
+        </nav>
+        <a href={`tel:${BUSINESS.phoneRaw}`} className="hidden lg:inline-flex items-center gap-2 bg-ink text-white text-sm font-semibold px-4 py-2 rounded-sm hover:bg-brand transition-colors">
+          <Phone className="w-4 h-4" /> {BUSINESS.phone}
+        </a>
+        <button className="lg:hidden p-2" onClick={() => setOpen(!open)} aria-label="Menu">
+          {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </button>
       </div>
+      {open && (
+        <div className="lg:hidden border-t border-border bg-flour">
+          <div className="px-5 py-4 flex flex-col gap-3 text-sm font-medium">
+            {links.map(([l, h]) => (
+              <a key={h} href={h} onClick={() => setOpen(false)} className="py-1">{l}</a>
+            ))}
+            <a href={`tel:${BUSINESS.phoneRaw}`} className="mt-2 inline-flex items-center justify-center gap-2 bg-ink text-white font-semibold px-4 py-2.5 rounded-sm">
+              <Phone className="w-4 h-4" /> {BUSINESS.phone}
+            </a>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
 
+/* ---------- HERO ---------- */
 function Hero() {
   return (
-    <section id="top" className="relative min-h-screen flex items-center overflow-hidden">
-      <div className="absolute inset-0">
-        <img src={heroFactory} alt="Modern bread manufacturing facility" className="h-full w-full object-cover" width={1920} height={1280} />
-        <div className="absolute inset-0 bg-gradient-to-b from-bark/80 via-bark/55 to-bark/85" />
-        <div className="absolute inset-0 bg-gradient-to-r from-bark/70 to-transparent" />
-      </div>
-      <div className="relative z-10 mx-auto max-w-7xl px-5 pt-32 pb-20 w-full">
-        <div className="max-w-3xl">
-          <Reveal>
-            <div className="inline-flex items-center gap-2 rounded-full glass-dark px-4 py-2 text-xs uppercase tracking-[0.2em] text-wheat">
-              <Sparkles className="h-3.5 w-3.5" /> Est. Moradabad · Uttar Pradesh
-            </div>
-          </Reveal>
-          <Reveal delay={120}>
-            <h1 className="mt-7 font-display text-5xl md:text-7xl lg:text-[88px] font-medium leading-[1.02] text-cream">
-              Freshness <em className="not-italic bg-gradient-to-r from-wheat to-wheat-deep bg-clip-text text-transparent">Baked</em> Every Day
-            </h1>
-          </Reveal>
-          <Reveal delay={240}>
-            <p className="mt-7 max-w-xl text-lg text-cream/80 leading-relaxed">
-              Leading bread & bakery manufacturer delivering consistent quality, hygienic production and dependable supply across Uttar Pradesh.
-            </p>
-          </Reveal>
-          <Reveal delay={360}>
-            <div className="mt-10 flex flex-wrap gap-4">
-              <a href="#products" className="group inline-flex items-center gap-2 rounded-full bg-[var(--gradient-warm)] px-7 py-4 text-sm font-semibold text-bark shadow-[var(--shadow-glow)] hover:scale-[1.02] transition-transform">
-                View Products
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </a>
-              <a href="#contact" className="inline-flex items-center gap-2 rounded-full glass-dark px-7 py-4 text-sm font-semibold text-cream hover:bg-bark/80 transition-colors">
-                Contact Us
-              </a>
-            </div>
-          </Reveal>
-          <Reveal delay={500}>
-            <div className="mt-16 grid grid-cols-3 gap-6 max-w-lg">
-              {[
-                { v: "50K+", l: "Daily Output" },
-                { v: "100+", l: "Retailers" },
-                { v: "10+", l: "Years" },
-              ].map((s) => (
-                <div key={s.l}>
-                  <div className="font-display text-3xl md:text-4xl text-cream">{s.v}</div>
-                  <div className="text-xs uppercase tracking-wider text-cream/60 mt-1">{s.l}</div>
-                </div>
-              ))}
-            </div>
-          </Reveal>
-        </div>
-      </div>
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-cream/50 text-xs uppercase tracking-[0.3em] animate-pulse">
-        Scroll
-      </div>
-    </section>
-  );
-}
-
-function About() {
-  const pillars = [
-    { icon: ShieldCheck, t: "Hygienic Production" },
-    { icon: Leaf, t: "Quality Ingredients" },
-    { icon: Truck, t: "Trusted Distribution" },
-    { icon: Clock, t: "Consistent Supply" },
-  ];
-  return (
-    <section id="about" className="relative py-28 md:py-36 bg-[var(--gradient-cream)]">
-      <div className="mx-auto max-w-7xl px-5">
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-20">
-          <div className="lg:col-span-5">
-            <Reveal>
-              <div className="text-xs uppercase tracking-[0.25em] text-wheat-deep font-medium">About Us</div>
-              <h2 className="mt-5 font-display text-4xl md:text-5xl lg:text-6xl text-bark leading-[1.05]">
-                About Bhagyashree Food Products
-              </h2>
-            </Reveal>
+    <section id="top" className="relative border-b border-border">
+      <div className="max-w-7xl mx-auto px-5 lg:px-8 py-14 lg:py-20 grid lg:grid-cols-12 gap-10 items-center">
+        <div className="lg:col-span-7">
+          <div className="inline-flex items-center gap-2 text-[11px] font-bold tracking-widest uppercase text-brand mb-5">
+            <span className="rule-red" /> Est. {BUSINESS.since} · Moradabad, UP
           </div>
-          <div className="lg:col-span-7">
-            <Reveal delay={120}>
-              <p className="text-lg text-bark-soft leading-relaxed">
-                Bhagyashree Food Products is a trusted bakery manufacturing company based in Moradabad, Uttar Pradesh. We specialize in producing fresh bread, rusk, bakery products and daily essential baked goods.
-              </p>
-              <p className="mt-5 text-base text-muted-foreground leading-relaxed">
-                Through modern manufacturing processes, strict quality control and hygienic production standards, we ensure consistent quality for distributors, retailers and consumers.
-              </p>
-            </Reveal>
-            <div className="mt-12 grid sm:grid-cols-2 gap-4">
-              {pillars.map((p, i) => (
-                <Reveal key={p.t} delay={200 + i * 80}>
-                  <div className="group flex items-center gap-4 rounded-2xl border border-border/60 bg-card p-5 hover:border-wheat hover:shadow-[var(--shadow-soft)] transition-all">
-                    <div className="grid h-11 w-11 place-items-center rounded-xl bg-cream group-hover:bg-[var(--gradient-warm)] transition-colors">
-                      <p.icon className="h-5 w-5 text-bark" strokeWidth={2} />
-                    </div>
-                    <div className="font-medium text-bark">{p.t}</div>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
+          <h1 className="font-display font-black text-4xl sm:text-5xl lg:text-6xl leading-[1.02] tracking-tight">
+            Fresh bread on your shelf,<br />
+            <span className="text-brand">every single morning.</span>
+          </h1>
+          <p className="mt-6 text-base lg:text-lg text-muted-foreground max-w-xl leading-relaxed">
+            Bhagyashree Food Products is a Moradabad-based wholesale bakery running
+            round-the-clock production to supply bread, rusk, buns and biscuits to
+            retailers, distributors, super markets, hotels and institutional buyers
+            across Uttar Pradesh — reliably, day after day, since {BUSINESS.since}.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a href="#wholesale" className="inline-flex items-center gap-2 bg-brand text-white font-semibold px-5 py-3 rounded-sm hover:bg-brand-dark transition-colors">
+              Become a distributor <ArrowRight className="w-4 h-4" />
+            </a>
+            <a href="#products" className="inline-flex items-center gap-2 border border-ink text-ink font-semibold px-5 py-3 rounded-sm hover:bg-ink hover:text-white transition-colors">
+              See product range
+            </a>
+          </div>
+          <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-xs font-semibold text-muted-foreground">
+            <span>FSSAI Lic. {BUSINESS.fssai}</span>
+            <span>·</span>
+            <span>GSTIN {BUSINESS.gstin}</span>
+            <span>·</span>
+            <span>MSME {BUSINESS.udyam}</span>
+          </div>
+        </div>
+        <div className="lg:col-span-5">
+          <div className="aspect-[4/5] photo-placeholder">
+            [PHOTO NEEDED: Wide shot of Bhagyashree factory floor — fresh bread loaves coming off production line, staff in uniform & hairnets]
           </div>
         </div>
       </div>
@@ -230,93 +159,108 @@ function About() {
   );
 }
 
-function WhyChooseUs() {
-  const cards = [
-    { icon: Sparkles, t: "Fresh Daily Production", d: "Every loaf baked, packed and dispatched the same day for unbeatable freshness." },
-    { icon: Factory, t: "Advanced Manufacturing", d: "Modern automated lines combining precision baking with traditional recipes." },
-    { icon: Beaker, t: "Quality Assurance", d: "Multi-stage testing and strict food safety protocols on every batch." },
-    { icon: Truck, t: "Wide Distribution Network", d: "Reliable cold-chain logistics reaching cities and towns across UP." },
-  ];
-  return (
-    <section className="relative py-28 md:py-36">
-      <div className="mx-auto max-w-7xl px-5">
-        <Reveal>
-          <div className="max-w-2xl">
-            <div className="text-xs uppercase tracking-[0.25em] text-wheat-deep font-medium">Why Choose Us</div>
-            <h2 className="mt-5 font-display text-4xl md:text-5xl text-bark leading-tight">
-              Built on quality, scaled by trust.
-            </h2>
-          </div>
-        </Reveal>
-        <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {cards.map((c, i) => (
-            <Reveal key={c.t} delay={i * 100}>
-              <div className="group relative h-full overflow-hidden rounded-3xl border border-border/60 bg-card p-7 hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)] transition-all duration-500">
-                <div className="absolute inset-x-0 top-0 h-1 bg-[var(--gradient-warm)] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-                <div className="grid h-14 w-14 place-items-center rounded-2xl bg-cream group-hover:bg-[var(--gradient-warm)] transition-colors duration-500">
-                  <c.icon className="h-6 w-6 text-bark" strokeWidth={1.8} />
-                </div>
-                <h3 className="mt-6 font-display text-xl text-bark">{c.t}</h3>
-                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{c.d}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Products() {
+/* ---------- TRUST STRIP ---------- */
+function TrustStrip() {
   const items = [
-    { img: milkBread, t: "Milk Bread", d: "Soft, fluffy and enriched with milk for everyday goodness." },
-    { img: brownBread, t: "Brown Bread", d: "Hearty whole-wheat loaf packed with natural fibre." },
-    { img: sandwichBread, t: "Sandwich Bread", d: "Perfectly even slices crafted for sandwiches & toasts." },
-    { img: premiumBread, t: "Premium Bread", d: "Artisan-style loaf with rich crust and tender crumb." },
-    { img: rusk, t: "Rusk", d: "Twice-baked, crisp and golden — the perfect tea companion." },
-    { img: toast, t: "Toast", d: "Light, crispy and irresistibly crunchy every single bite." },
-    { img: cookies, t: "Cookies", d: "Buttery, melt-in-mouth cookies baked in small batches." },
-    { img: snacks, t: "Bakery Snacks", d: "Savoury baked snacks for cafés, kitties and quick bites." },
+    ["Est. 2012", "10+ years of daily supply"],
+    ["24 / 7", "Round-the-clock production"],
+    ["FSSAI Licensed", `Lic. ${BUSINESS.fssai}`],
+    ["MSME Registered", BUSINESS.udyam],
   ];
   return (
-    <section id="products" className="relative py-28 md:py-36 bg-cream">
-      <div className="mx-auto max-w-7xl px-5">
-        <div className="flex items-end justify-between gap-8 flex-wrap">
-          <Reveal>
-            <div className="max-w-2xl">
-              <div className="text-xs uppercase tracking-[0.25em] text-wheat-deep font-medium">Our Products</div>
-              <h2 className="mt-5 font-display text-4xl md:text-5xl text-bark leading-tight">
-                A complete bakery line-up.
-              </h2>
-            </div>
-          </Reveal>
-          <Reveal delay={120}>
-            <p className="max-w-md text-base text-muted-foreground">
-              From the everyday loaf to crisp tea-time companions — each product is baked daily with the same uncompromising care.
-            </p>
-          </Reveal>
+    <section className="bg-ink text-white">
+      <div className="max-w-7xl mx-auto px-5 lg:px-8 py-6 grid grid-cols-2 lg:grid-cols-4 divide-y lg:divide-y-0 lg:divide-x divide-white/10">
+        {items.map(([k, v]) => (
+          <div key={k} className="py-3 lg:py-2 lg:px-6 first:lg:pl-0">
+            <div className="font-display font-black text-lg text-gold">{k}</div>
+            <div className="text-xs text-white/70 mt-0.5">{v}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ---------- ABOUT ---------- */
+function About() {
+  return (
+    <section id="about" className="py-20 lg:py-28 border-b border-border">
+      <div className="max-w-7xl mx-auto px-5 lg:px-8 grid lg:grid-cols-12 gap-12">
+        <div className="lg:col-span-5">
+          <SectionLabel>About the company</SectionLabel>
+          <h2 className="mt-4 text-3xl lg:text-4xl font-black">
+            A Moradabad bakery built on <span className="text-brand">daily reliability</span>.
+          </h2>
         </div>
-        <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {items.map((p, i) => (
-            <Reveal key={p.t} delay={(i % 4) * 80}>
-              <article className="group overflow-hidden rounded-3xl bg-card border border-border/50 hover:shadow-[var(--shadow-elegant)] hover:-translate-y-1 transition-all duration-500">
-                <div className="relative aspect-square overflow-hidden bg-secondary">
-                  <img
-                    src={p.img}
-                    alt={p.t}
-                    loading="lazy"
-                    width={800}
-                    height={800}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-bark/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="lg:col-span-7 space-y-5 text-[15px] leading-relaxed text-muted-foreground">
+          <p>
+            Bhagyashree Food Products was established in {BUSINESS.since} on Delhi Road,
+            Moradabad, as a partnership-run bakery manufacturing unit. What started
+            as a small daily-supply operation has grown into a full-fledged production
+            facility running 24 hours a day to keep bread, rusk, buns and biscuits
+            moving to stores and kitchens across Uttar Pradesh.
+          </p>
+          <p>
+            Our business is B2B by design. We don't run a retail counter — we run a
+            production line. Distributors, super markets, general trade retailers,
+            hotels, restaurants and institutional buyers depend on us for consistent
+            volume, consistent quality, and on-time morning delivery.
+          </p>
+          <p>
+            We are registered under MSME ({BUSINESS.udyam}), hold GSTIN {BUSINESS.gstin},
+            and operate under FSSAI licence {BUSINESS.fssai}.
+          </p>
+          <div className="pt-2 grid sm:grid-cols-2 gap-3">
+            <div className="aspect-[4/3] photo-placeholder">
+              [PHOTO NEEDED: Owner / partners at the facility]
+            </div>
+            <div className="aspect-[4/3] photo-placeholder">
+              [PHOTO NEEDED: Exterior of the Moradabad unit / signage]
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- PRODUCTS ---------- */
+function Products() {
+  return (
+    <section id="products" className="py-20 lg:py-28 bg-cream border-b border-border">
+      <div className="max-w-7xl mx-auto px-5 lg:px-8">
+        <div className="max-w-2xl">
+          <SectionLabel>Product range</SectionLabel>
+          <h2 className="mt-4 text-3xl lg:text-4xl font-black">Four categories. Baked daily.</h2>
+          <p className="mt-4 text-muted-foreground">
+            Our full catalogue supplied to trade partners. Custom packaging and
+            private-label arrangements available for qualifying distributors.
+          </p>
+        </div>
+
+        <div className="mt-12 grid md:grid-cols-2 gap-6">
+          {PRODUCT_GROUPS.map((g) => (
+            <div key={g.title} className="bg-card border border-border rounded-md overflow-hidden flex flex-col">
+              <div className="aspect-[16/9] photo-placeholder rounded-none border-0 border-b border-border">
+                [PHOTO NEEDED: {g.title} — packaged product on plain background]
+              </div>
+              <div className="p-6">
+                <div className="flex items-baseline justify-between gap-4">
+                  <h3 className="font-display font-black text-2xl">{g.title}</h3>
+                  <span className="text-xs font-bold text-brand tracking-widest">
+                    {g.items.length} SKUs
+                  </span>
                 </div>
-                <div className="p-5">
-                  <h3 className="font-display text-xl text-bark">{p.t}</h3>
-                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{p.d}</p>
-                </div>
-              </article>
-            </Reveal>
+                <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-4">
+                  {g.items.map((it) => (
+                    <li key={it} className="flex items-center gap-2 text-sm">
+                      <span className="w-1.5 h-1.5 bg-brand rounded-full" />
+                      {it}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           ))}
         </div>
       </div>
@@ -324,158 +268,197 @@ function Products() {
   );
 }
 
+/* ---------- WHOLESALE ---------- */
+function Wholesale() {
+  const [sent, setSent] = useState(false);
+  return (
+    <section id="wholesale" className="py-20 lg:py-28 bg-ink text-white border-b border-border">
+      <div className="max-w-7xl mx-auto px-5 lg:px-8 grid lg:grid-cols-12 gap-12">
+        <div className="lg:col-span-5">
+          <div className="inline-flex items-center gap-2 text-[11px] font-bold tracking-widest uppercase text-gold mb-5">
+            <span className="w-10 h-[3px] bg-gold" /> For trade buyers
+          </div>
+          <h2 className="text-3xl lg:text-4xl font-black">
+            Distributors, retailers &amp; bulk buyers — <span className="text-gold">let's talk volume.</span>
+          </h2>
+          <p className="mt-5 text-white/70 leading-relaxed">
+            Our morning-delivery routes cover Moradabad and surrounding districts.
+            Share your requirement and our sales team will get back with pricing,
+            MOQ, and delivery schedule.
+          </p>
+          <ul className="mt-8 space-y-3 text-sm">
+            {[
+              "Daily / alternate-day supply schedules",
+              "Fresh production — no long-storage stock",
+              "Custom order quantities for institutional buyers",
+              "GST-compliant invoicing",
+            ].map((l) => (
+              <li key={l} className="flex gap-3 items-start">
+                <CheckCircle2 className="w-5 h-5 text-gold shrink-0 mt-0.5" />
+                <span className="text-white/85">{l}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="lg:col-span-7">
+          <form
+            onSubmit={(e) => { e.preventDefault(); setSent(true); }}
+            className="bg-white text-ink rounded-md p-6 lg:p-8 grid sm:grid-cols-2 gap-4"
+          >
+            <Field label="Your name" name="name" required />
+            <Field label="Phone" name="phone" type="tel" required />
+            <Field label="Business name" name="business" />
+            <SelectField label="Business type" name="type" options={[
+              "Retail store", "Distributor", "Super market", "Hotel / Restaurant",
+              "Institutional buyer", "Other",
+            ]} />
+            <Field label="Location / City" name="city" className="sm:col-span-2" />
+            <Field label="Approximate quantity required" name="qty" placeholder="e.g. 200 loaves/day" className="sm:col-span-2" />
+            <div className="sm:col-span-2">
+              <label className="block text-xs font-bold tracking-widest uppercase text-muted-foreground mb-1.5">Message</label>
+              <textarea name="message" rows={4} className="w-full border border-border rounded-sm px-3 py-2.5 text-sm focus:outline-none focus:border-brand" placeholder="Tell us about your requirement" />
+            </div>
+            <div className="sm:col-span-2 flex items-center justify-between gap-4 pt-2">
+              <p className="text-xs text-muted-foreground">
+                Or call directly: <a href={`tel:${BUSINESS.phoneRaw}`} className="text-brand font-semibold">{BUSINESS.phone}</a>
+              </p>
+              <button type="submit" className="inline-flex items-center gap-2 bg-brand text-white font-semibold px-5 py-3 rounded-sm hover:bg-brand-dark transition-colors">
+                {sent ? "Enquiry sent" : "Send enquiry"} <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Field({ label, name, type = "text", required, placeholder, className = "" }: { label: string; name: string; type?: string; required?: boolean; placeholder?: string; className?: string }) {
+  return (
+    <div className={className}>
+      <label className="block text-xs font-bold tracking-widest uppercase text-muted-foreground mb-1.5">{label}{required && " *"}</label>
+      <input type={type} name={name} required={required} placeholder={placeholder} className="w-full border border-border rounded-sm px-3 py-2.5 text-sm focus:outline-none focus:border-brand" />
+    </div>
+  );
+}
+function SelectField({ label, name, options }: { label: string; name: string; options: string[] }) {
+  return (
+    <div>
+      <label className="block text-xs font-bold tracking-widest uppercase text-muted-foreground mb-1.5">{label}</label>
+      <select name={name} className="w-full border border-border rounded-sm px-3 py-2.5 text-sm bg-white focus:outline-none focus:border-brand">
+        <option value="">Select…</option>
+        {options.map((o) => <option key={o}>{o}</option>)}
+      </select>
+    </div>
+  );
+}
+
+/* ---------- PROCESS ---------- */
 function Process() {
   const steps = [
-    { n: "01", icon: Leaf, t: "Ingredient Selection", d: "Premium-grade flour, fresh dairy and tested raw materials sourced from trusted suppliers." },
-    { n: "02", icon: Factory, t: "Production & Baking", d: "Automated mixing, proofing and baking lines calibrated for consistency." },
-    { n: "03", icon: Beaker, t: "Quality Testing", d: "Lab-verified checks for taste, texture, moisture and food safety standards." },
-    { n: "04", icon: Truck, t: "Distribution & Delivery", d: "Same-day dispatch through our cold-chain logistics to partners across UP." },
+    { t: "Sourcing", d: "Flour, sugar, yeast and packaging inputs sourced from vetted suppliers with lot-level tracking." },
+    { t: "Production", d: "Continuous mixing, proving and baking cycles running 24/7 across our Moradabad unit." },
+    { t: "Quality check", d: "In-line checks on weight, bake, colour and packaging before any batch is cleared for dispatch." },
+    { t: "Dispatch", d: "Route-wise loading through the night for on-time morning delivery to trade partners." },
   ];
   return (
-    <section id="process" className="relative py-28 md:py-36 bg-bark text-cream overflow-hidden">
-      <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{
-        backgroundImage: "radial-gradient(circle at 1px 1px, oklch(0.97 0.015 85) 1px, transparent 0)",
-        backgroundSize: "32px 32px",
-      }} />
-      <div className="relative mx-auto max-w-7xl px-5">
-        <Reveal>
-          <div className="max-w-2xl">
-            <div className="text-xs uppercase tracking-[0.25em] text-wheat font-medium">Manufacturing Process</div>
-            <h2 className="mt-5 font-display text-4xl md:text-5xl text-cream leading-tight">
-              From grain to your shelf — in one seamless day.
-            </h2>
-          </div>
-        </Reveal>
-        <div className="mt-20 grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-3 relative">
-          <div className="hidden lg:block absolute top-8 left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-transparent via-wheat/40 to-transparent" />
+    <section id="process" className="py-20 lg:py-28 border-b border-border">
+      <div className="max-w-7xl mx-auto px-5 lg:px-8">
+        <div className="max-w-2xl">
+          <SectionLabel>How we work</SectionLabel>
+          <h2 className="mt-4 text-3xl lg:text-4xl font-black">From mill to morning delivery.</h2>
+        </div>
+        <ol className="mt-12 grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {steps.map((s, i) => (
-            <Reveal key={s.n} delay={i * 150}>
-              <div className="relative">
-                <div className="relative z-10 grid h-16 w-16 place-items-center rounded-2xl bg-[var(--gradient-warm)] shadow-[var(--shadow-glow)]">
-                  <s.icon className="h-7 w-7 text-bark" strokeWidth={1.8} />
-                </div>
-                <div className="mt-6 font-display text-5xl text-wheat/30">{s.n}</div>
-                <h3 className="mt-2 font-display text-xl text-cream">{s.t}</h3>
-                <p className="mt-3 text-sm text-cream/60 leading-relaxed max-w-xs">{s.d}</p>
-              </div>
-            </Reveal>
+            <li key={s.t} className="border border-border bg-card p-6 rounded-md">
+              <div className="font-display font-black text-brand text-3xl">{String(i + 1).padStart(2, "0")}</div>
+              <div className="mt-3 font-display font-extrabold text-xl">{s.t}</div>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{s.d}</p>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );
 }
 
-function Clients() {
-  const types = ["Retail Stores", "Super Markets", "Distributors", "Hotels", "Restaurants", "Institutional Buyers"];
-  return (
-    <section className="py-28 md:py-36 bg-cream">
-      <div className="mx-auto max-w-7xl px-5">
-        <Reveal>
-          <div className="text-center max-w-2xl mx-auto">
-            <div className="text-xs uppercase tracking-[0.25em] text-wheat-deep font-medium">Our Clients</div>
-            <h2 className="mt-5 font-display text-4xl md:text-5xl text-bark leading-tight">
-              Trusted across the supply chain.
-            </h2>
-            <p className="mt-6 text-base text-muted-foreground">
-              Serving hundreds of retailers and distributors with reliable supply and consistent quality.
-            </p>
-          </div>
-        </Reveal>
-        <div className="mt-16 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          {types.map((t, i) => (
-            <Reveal key={t} delay={i * 60}>
-              <div className="group aspect-[5/3] rounded-2xl glass border border-border/60 grid place-items-center text-center p-4 hover:border-wheat hover:shadow-[var(--shadow-soft)] transition-all">
-                <div>
-                  <Package className="h-6 w-6 text-wheat-deep mx-auto group-hover:scale-110 transition-transform" strokeWidth={1.8} />
-                  <div className="mt-3 text-sm font-medium text-bark">{t}</div>
-                </div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
+/* ---------- QUALITY ---------- */
 function Quality() {
-  const points = [
-    "Hygienic Manufacturing",
-    "Quality Ingredients",
-    "Consistent Taste",
-    "Food Safety Standards",
-    "Fresh Daily Production",
+  const registrations = [
+    { icon: ShieldCheck, label: "FSSAI Licence", value: BUSINESS.fssai },
+    { icon: Factory, label: "MSME / Udyam", value: BUSINESS.udyam },
+    { icon: Building2, label: "GSTIN", value: BUSINESS.gstin },
+    { icon: Truck, label: "Operating since", value: `${BUSINESS.since} — 10+ years` },
   ];
   return (
-    <section id="quality" className="relative py-28 md:py-36">
-      <div className="mx-auto max-w-7xl px-5">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          <Reveal>
-            <div className="relative rounded-3xl overflow-hidden shadow-[var(--shadow-elegant)]">
-              <img
-                src={qualityFacility}
-                alt="Workers inspecting fresh bread on production line"
-                loading="lazy"
-                width={1600}
-                height={1200}
-                className="w-full aspect-[4/5] object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-bark/30 to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6 glass rounded-2xl p-5 flex items-center gap-4">
-                <Award className="h-8 w-8 text-wheat-deep" />
-                <div>
-                  <div className="font-display text-bark">Certified Quality</div>
-                  <div className="text-xs text-muted-foreground">FSSAI compliant production</div>
-                </div>
-              </div>
-            </div>
-          </Reveal>
-          <div>
-            <Reveal>
-              <div className="text-xs uppercase tracking-[0.25em] text-wheat-deep font-medium">Quality Promise</div>
-              <h2 className="mt-5 font-display text-4xl md:text-5xl text-bark leading-tight">
-                Uncompromising standards, in every loaf.
-              </h2>
-              <p className="mt-6 text-base text-muted-foreground leading-relaxed">
-                Quality is not an outcome — it's a discipline. From sourcing to packing, every step is governed by strict food safety protocols and hands-on craftsmanship.
-              </p>
-            </Reveal>
-            <div className="mt-10 space-y-3">
-              {points.map((p, i) => (
-                <Reveal key={p} delay={i * 80}>
-                  <div className="flex items-center gap-4 rounded-xl bg-cream px-5 py-4 border border-border/40">
-                    <CheckCircle2 className="h-5 w-5 text-wheat-deep shrink-0" />
-                    <span className="text-bark font-medium">{p}</span>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
+    <section id="quality" className="py-20 lg:py-28 bg-cream border-b border-border">
+      <div className="max-w-7xl mx-auto px-5 lg:px-8 grid lg:grid-cols-12 gap-12 items-start">
+        <div className="lg:col-span-5">
+          <SectionLabel>Quality &amp; compliance</SectionLabel>
+          <h2 className="mt-4 text-3xl lg:text-4xl font-black">
+            Registered, licensed, and running to spec.
+          </h2>
+          <p className="mt-5 text-muted-foreground leading-relaxed">
+            Everything we make is produced under FSSAI licence in a facility that
+            follows daily hygiene protocols — sanitised production lines, uniformed
+            staff, hairnets and gloves, and batch-wise quality checks before dispatch.
+          </p>
+          <div className="mt-6 aspect-[4/3] photo-placeholder">
+            [PHOTO NEEDED: Staff in uniform / hygienic production floor]
           </div>
+        </div>
+        <div className="lg:col-span-7">
+          <div className="grid sm:grid-cols-2 gap-4">
+            {registrations.map(({ icon: Icon, label, value }) => (
+              <div key={label} className="bg-card border border-border rounded-md p-5">
+                <Icon className="w-6 h-6 text-brand" />
+                <div className="mt-3 text-[11px] font-bold uppercase tracking-widest text-muted-foreground">{label}</div>
+                <div className="mt-1 font-display font-extrabold text-lg break-all">{value}</div>
+              </div>
+            ))}
+          </div>
+          <ul className="mt-6 grid sm:grid-cols-2 gap-3 text-sm">
+            {[
+              "Daily sanitisation of mixing, proving & baking lines",
+              "Batch-level weight and bake checks",
+              "Sealed, food-grade packaging",
+              "FIFO stock rotation across dispatch",
+            ].map((l) => (
+              <li key={l} className="flex gap-2 items-start bg-card border border-border rounded-md px-4 py-3">
+                <CheckCircle2 className="w-4 h-4 text-brand shrink-0 mt-0.5" />
+                {l}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>
   );
 }
 
-function Stats() {
-  const stats = [
-    { v: "50,000+", l: "Bread Produced Daily" },
-    { v: "100+", l: "Retail Partners" },
-    { v: "10+", l: "Years Experience" },
-    { v: "24/7", l: "Distribution Support" },
+/* ---------- CLIENTS ---------- */
+function Clients() {
+  const buyers = [
+    { icon: Store, t: "Retail stores", d: "General trade & neighbourhood grocers" },
+    { icon: ShoppingBag, t: "Distributors", d: "Regional stockists across UP" },
+    { icon: Building2, t: "Super markets", d: "Modern trade & self-service outlets" },
+    { icon: Hotel, t: "Hotels & restaurants", d: "HoReCa daily supply schedules" },
+    { icon: Factory, t: "Institutional buyers", d: "Canteens, hostels, caterers" },
   ];
   return (
-    <section className="py-24 bg-[var(--gradient-warm)]">
-      <div className="mx-auto max-w-7xl px-5">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-4">
-          {stats.map((s, i) => (
-            <Reveal key={s.l} delay={i * 100}>
-              <div className="text-center lg:text-left">
-                <div className="font-display text-5xl md:text-6xl text-bark">{s.v}</div>
-                <div className="mt-2 text-sm uppercase tracking-wider text-bark/70">{s.l}</div>
-              </div>
-            </Reveal>
+    <section className="py-20 lg:py-28 border-b border-border">
+      <div className="max-w-7xl mx-auto px-5 lg:px-8">
+        <div className="max-w-2xl">
+          <SectionLabel>Who we supply</SectionLabel>
+          <h2 className="mt-4 text-3xl lg:text-4xl font-black">Built for trade, not walk-ins.</h2>
+        </div>
+        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          {buyers.map(({ icon: Icon, t, d }) => (
+            <div key={t} className="border border-border bg-card p-5 rounded-md">
+              <Icon className="w-6 h-6 text-brand" />
+              <div className="mt-3 font-display font-extrabold">{t}</div>
+              <div className="mt-1 text-xs text-muted-foreground leading-relaxed">{d}</div>
+            </div>
           ))}
         </div>
       </div>
@@ -483,172 +466,112 @@ function Stats() {
   );
 }
 
+/* ---------- CONTACT ---------- */
 function Contact() {
   return (
-    <section id="contact" className="relative py-28 md:py-36 bg-cream">
-      <div className="mx-auto max-w-7xl px-5">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
-          <div>
-            <Reveal>
-              <div className="text-xs uppercase tracking-[0.25em] text-wheat-deep font-medium">Get In Touch</div>
-              <h2 className="mt-5 font-display text-4xl md:text-5xl text-bark leading-tight">
-                Let's build a reliable supply together.
-              </h2>
-              <p className="mt-6 text-base text-muted-foreground leading-relaxed max-w-md">
-                Distributor, retailer or institutional buyer — reach out and our team will get back within one business day.
-              </p>
-            </Reveal>
-            <div className="mt-10 space-y-5">
-              {[
-                { icon: MapPin, t: "Address", d: "Khushhalpur Road, Moradabad, Uttar Pradesh" },
-                { icon: Phone, t: "Phone", d: "+91 98765 43210" },
-                { icon: Mail, t: "Email", d: "info@bhagyashreefoods.in" },
-              ].map((c, i) => (
-                <Reveal key={c.t} delay={i * 100}>
-                  <div className="flex items-start gap-4">
-                    <div className="grid h-11 w-11 place-items-center rounded-xl bg-[var(--gradient-warm)] shrink-0">
-                      <c.icon className="h-5 w-5 text-bark" strokeWidth={1.8} />
-                    </div>
-                    <div>
-                      <div className="text-xs uppercase tracking-wider text-muted-foreground">{c.t}</div>
-                      <div className="mt-1 text-bark font-medium">{c.d}</div>
-                    </div>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-            <Reveal delay={400}>
-              <div className="mt-10 rounded-3xl overflow-hidden border border-border/60 shadow-[var(--shadow-soft)]">
-                <iframe
-                  title="Bhagyashree Food Products — Moradabad"
-                  src="https://www.openstreetmap.org/export/embed.html?bbox=78.7%2C28.82%2C78.82%2C28.88&layer=mapnik&marker=28.8386,28.8386"
-                  className="w-full h-64 border-0"
-                  loading="lazy"
-                />
-              </div>
-            </Reveal>
+    <section id="contact" className="py-20 lg:py-28 bg-cream border-b border-border">
+      <div className="max-w-7xl mx-auto px-5 lg:px-8 grid lg:grid-cols-12 gap-10">
+        <div className="lg:col-span-5">
+          <SectionLabel>Get in touch</SectionLabel>
+          <h2 className="mt-4 text-3xl lg:text-4xl font-black">Visit the unit or call our sales desk.</h2>
+          <div className="mt-8 space-y-5 text-sm">
+            <ContactRow icon={MapPin} title="Factory address">
+              {BUSINESS.address}
+            </ContactRow>
+            <ContactRow icon={Phone} title="Phone">
+              <a href={`tel:${BUSINESS.phoneRaw}`} className="hover:text-brand">{BUSINESS.phone}</a>
+            </ContactRow>
+            <ContactRow icon={Mail} title="Email">
+              <a href={`mailto:${BUSINESS.email}`} className="hover:text-brand break-all">{BUSINESS.email}</a>
+            </ContactRow>
           </div>
-          <Reveal delay={150}>
-            <form
-              onSubmit={(e) => { e.preventDefault(); alert("Thanks! We'll be in touch shortly."); }}
-              className="rounded-3xl bg-card border border-border/60 p-7 md:p-10 shadow-[var(--shadow-soft)]"
-            >
-              <h3 className="font-display text-2xl text-bark">Send us a message</h3>
-              <div className="mt-7 grid gap-5">
-                <Field label="Name"><input required type="text" className="field" placeholder="Your full name" /></Field>
-                <Field label="Phone"><input required type="tel" className="field" placeholder="+91" /></Field>
-                <Field label="Business Type">
-                  <select required className="field bg-card">
-                    <option value="">Select...</option>
-                    <option>Retail Store</option>
-                    <option>Distributor</option>
-                    <option>Super Market</option>
-                    <option>Hotel / Restaurant</option>
-                    <option>Institutional Buyer</option>
-                  </select>
-                </Field>
-                <Field label="Message">
-                  <textarea required rows={4} className="field resize-none" placeholder="Tell us about your requirements" />
-                </Field>
-                <button type="submit" className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-bark px-6 py-4 text-sm font-semibold text-cream hover:bg-bark-soft transition-colors">
-                  Send Message <ArrowRight className="h-4 w-4" />
-                </button>
-              </div>
-            </form>
-          </Reveal>
+        </div>
+        <div className="lg:col-span-7">
+          <div className="aspect-[4/3] rounded-md overflow-hidden border border-border bg-card">
+            <iframe
+              title="Bhagyashree Food Products location"
+              src="https://www.google.com/maps?q=Khushalpur+Road+Sahapur+Tigre+Delhi+Road+Moradabad+Uttar+Pradesh+244001&output=embed"
+              width="100%"
+              height="100%"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              style={{ border: 0 }}
+            />
+          </div>
         </div>
       </div>
-      <style>{`
-        .field {
-          width: 100%;
-          border-radius: 12px;
-          border: 1px solid var(--color-border);
-          background: var(--color-background);
-          padding: 0.85rem 1rem;
-          font-size: 0.95rem;
-          color: var(--color-foreground);
-          transition: border-color 0.2s, box-shadow 0.2s;
-        }
-        .field:focus {
-          outline: none;
-          border-color: var(--wheat-deep);
-          box-shadow: 0 0 0 4px color-mix(in oklab, var(--wheat-deep) 18%, transparent);
-        }
-      `}</style>
     </section>
   );
 }
-
-function Field({ label, children }: { label: string; children: ReactNode }) {
+function ContactRow({ icon: Icon, title, children }: { icon: any; title: string; children: React.ReactNode }) {
   return (
-    <label className="block">
-      <span className="text-xs uppercase tracking-wider text-muted-foreground">{label}</span>
-      <div className="mt-2">{children}</div>
-    </label>
+    <div className="flex gap-4">
+      <div className="w-10 h-10 grid place-items-center bg-brand text-white rounded-sm shrink-0">
+        <Icon className="w-5 h-5" />
+      </div>
+      <div>
+        <div className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">{title}</div>
+        <div className="mt-0.5 leading-relaxed">{children}</div>
+      </div>
+    </div>
   );
 }
 
+/* ---------- FOOTER ---------- */
 function Footer() {
   return (
-    <footer className="bg-bark text-cream pt-20 pb-8">
-      <div className="mx-auto max-w-7xl px-5">
-        <div className="grid md:grid-cols-4 gap-12">
-          <div className="md:col-span-2">
-            <div className="flex items-center gap-2.5">
-              <div className="grid h-10 w-10 place-items-center rounded-xl bg-[var(--gradient-warm)]">
-                <Wheat className="h-5 w-5 text-bark" strokeWidth={2.2} />
-              </div>
-              <div>
-                <div className="font-display text-lg">Bhagyashree</div>
-                <div className="text-[10px] uppercase tracking-[0.18em] text-cream/60">Food Products</div>
-              </div>
-            </div>
-            <p className="mt-6 text-sm text-cream/60 leading-relaxed max-w-md">
-              Premium bread and bakery manufacturer based in Moradabad, Uttar Pradesh. Freshness baked every day.
-            </p>
+    <footer className="bg-ink text-white/80">
+      <div className="max-w-7xl mx-auto px-5 lg:px-8 py-14 grid md:grid-cols-4 gap-10 text-sm">
+        <div className="md:col-span-2">
+          <div className="flex items-center gap-2.5">
+            <span className="w-9 h-9 grid place-items-center bg-brand text-white font-display font-black text-lg rounded-sm">B</span>
+            <span className="font-display font-extrabold text-white text-[15px] leading-tight">
+              Bhagyashree<br /><span className="text-[11px] font-semibold tracking-widest text-white/60 uppercase">Food Products</span>
+            </span>
           </div>
-          <div>
-            <div className="text-xs uppercase tracking-wider text-wheat">Quick Links</div>
-            <ul className="mt-5 space-y-3 text-sm text-cream/70">
-              <li><a href="#about" className="hover:text-wheat transition-colors">About Us</a></li>
-              <li><a href="#products" className="hover:text-wheat transition-colors">Products</a></li>
-              <li><a href="#process" className="hover:text-wheat transition-colors">Process</a></li>
-              <li><a href="#quality" className="hover:text-wheat transition-colors">Quality</a></li>
-              <li><a href="#contact" className="hover:text-wheat transition-colors">Contact</a></li>
-            </ul>
-          </div>
-          <div>
-            <div className="text-xs uppercase tracking-wider text-wheat">Contact</div>
-            <ul className="mt-5 space-y-3 text-sm text-cream/70">
-              <li>Khushhalpur Road,<br />Moradabad, Uttar Pradesh</li>
-              <li>+91 98765 43210</li>
-              <li>info@bhagyashreefoods.in</li>
-            </ul>
+          <p className="mt-5 max-w-md leading-relaxed">
+            Wholesale bakery manufacturer based in Moradabad, Uttar Pradesh.
+            Daily supply of bread, rusk, buns and biscuits to trade partners
+            across UP since {BUSINESS.since}.
+          </p>
+          <div className="mt-5 space-y-1 text-xs text-white/60">
+            <div>GSTIN: <span className="text-white/90 font-semibold">{BUSINESS.gstin}</span></div>
+            <div>Udyam: <span className="text-white/90 font-semibold">{BUSINESS.udyam}</span></div>
+            <div>FSSAI Lic.: <span className="text-white/90 font-semibold">{BUSINESS.fssai}</span></div>
           </div>
         </div>
-        <div className="mt-16 pt-8 border-t border-cream/10 flex flex-wrap items-center justify-between gap-4 text-xs text-cream/50">
+        <div>
+          <div className="text-[11px] font-bold uppercase tracking-widest text-gold">Quick links</div>
+          <ul className="mt-4 space-y-2">
+            {[["About", "#about"], ["Products", "#products"], ["Wholesale", "#wholesale"], ["Process", "#process"], ["Quality", "#quality"], ["Contact", "#contact"]].map(([l, h]) => (
+              <li key={h}><a href={h} className="hover:text-white">{l}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <div className="text-[11px] font-bold uppercase tracking-widest text-gold">Contact</div>
+          <ul className="mt-4 space-y-2 text-white/80">
+            <li className="leading-relaxed">{BUSINESS.address}</li>
+            <li><a href={`tel:${BUSINESS.phoneRaw}`} className="hover:text-white">{BUSINESS.phone}</a></li>
+            <li><a href={`mailto:${BUSINESS.email}`} className="hover:text-white break-all">{BUSINESS.email}</a></li>
+          </ul>
+        </div>
+      </div>
+      <div className="border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-5 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-white/50">
           <div>© {new Date().getFullYear()} Bhagyashree Food Products. All rights reserved.</div>
-          <div>Made with care in Moradabad, UP.</div>
+          <div>Moradabad · Uttar Pradesh · India</div>
         </div>
       </div>
     </footer>
   );
 }
 
-function Index() {
+/* ---------- SHARED ---------- */
+function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <main className="bg-background">
-      <Nav />
-      <Hero />
-      <About />
-      <WhyChooseUs />
-      <Products />
-      <Process />
-      <Clients />
-      <Quality />
-      <Stats />
-      <Contact />
-      <Footer />
-    </main>
+    <div className="inline-flex items-center gap-2 text-[11px] font-bold tracking-widest uppercase text-brand">
+      <span className="rule-red" /> {children}
+    </div>
   );
 }
