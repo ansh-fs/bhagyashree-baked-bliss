@@ -9,19 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ProductsRouteImport } from './routes/products'
 import { Route as ProcessRouteImport } from './routes/process'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as DistributorsRouteImport } from './routes/distributors'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BrandsIndexRouteImport } from './routes/brands.index'
+import { Route as BrandsPreetiRouteImport } from './routes/brands.preeti'
+import { Route as BrandsGoodMorningIndiaRouteImport } from './routes/brands.good-morning-india'
 
-const ProductsRoute = ProductsRouteImport.update({
-  id: '/products',
-  path: '/products',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ProcessRoute = ProcessRouteImport.update({
   id: '/process',
   path: '/process',
@@ -52,6 +49,21 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BrandsIndexRoute = BrandsIndexRouteImport.update({
+  id: '/brands/',
+  path: '/brands/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrandsPreetiRoute = BrandsPreetiRouteImport.update({
+  id: '/brands/preeti',
+  path: '/brands/preeti',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrandsGoodMorningIndiaRoute = BrandsGoodMorningIndiaRouteImport.update({
+  id: '/brands/good-morning-india',
+  path: '/brands/good-morning-india',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -60,7 +72,9 @@ export interface FileRoutesByFullPath {
   '/distributors': typeof DistributorsRoute
   '/gallery': typeof GalleryRoute
   '/process': typeof ProcessRoute
-  '/products': typeof ProductsRoute
+  '/brands/good-morning-india': typeof BrandsGoodMorningIndiaRoute
+  '/brands/preeti': typeof BrandsPreetiRoute
+  '/brands/': typeof BrandsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -69,7 +83,9 @@ export interface FileRoutesByTo {
   '/distributors': typeof DistributorsRoute
   '/gallery': typeof GalleryRoute
   '/process': typeof ProcessRoute
-  '/products': typeof ProductsRoute
+  '/brands/good-morning-india': typeof BrandsGoodMorningIndiaRoute
+  '/brands/preeti': typeof BrandsPreetiRoute
+  '/brands': typeof BrandsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -79,7 +95,9 @@ export interface FileRoutesById {
   '/distributors': typeof DistributorsRoute
   '/gallery': typeof GalleryRoute
   '/process': typeof ProcessRoute
-  '/products': typeof ProductsRoute
+  '/brands/good-morning-india': typeof BrandsGoodMorningIndiaRoute
+  '/brands/preeti': typeof BrandsPreetiRoute
+  '/brands/': typeof BrandsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -90,7 +108,9 @@ export interface FileRouteTypes {
     | '/distributors'
     | '/gallery'
     | '/process'
-    | '/products'
+    | '/brands/good-morning-india'
+    | '/brands/preeti'
+    | '/brands/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -99,7 +119,9 @@ export interface FileRouteTypes {
     | '/distributors'
     | '/gallery'
     | '/process'
-    | '/products'
+    | '/brands/good-morning-india'
+    | '/brands/preeti'
+    | '/brands'
   id:
     | '__root__'
     | '/'
@@ -108,7 +130,9 @@ export interface FileRouteTypes {
     | '/distributors'
     | '/gallery'
     | '/process'
-    | '/products'
+    | '/brands/good-morning-india'
+    | '/brands/preeti'
+    | '/brands/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -118,18 +142,13 @@ export interface RootRouteChildren {
   DistributorsRoute: typeof DistributorsRoute
   GalleryRoute: typeof GalleryRoute
   ProcessRoute: typeof ProcessRoute
-  ProductsRoute: typeof ProductsRoute
+  BrandsGoodMorningIndiaRoute: typeof BrandsGoodMorningIndiaRoute
+  BrandsPreetiRoute: typeof BrandsPreetiRoute
+  BrandsIndexRoute: typeof BrandsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/products': {
-      id: '/products'
-      path: '/products'
-      fullPath: '/products'
-      preLoaderRoute: typeof ProductsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/process': {
       id: '/process'
       path: '/process'
@@ -172,6 +191,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/brands/': {
+      id: '/brands/'
+      path: '/brands'
+      fullPath: '/brands/'
+      preLoaderRoute: typeof BrandsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brands/preeti': {
+      id: '/brands/preeti'
+      path: '/brands/preeti'
+      fullPath: '/brands/preeti'
+      preLoaderRoute: typeof BrandsPreetiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brands/good-morning-india': {
+      id: '/brands/good-morning-india'
+      path: '/brands/good-morning-india'
+      fullPath: '/brands/good-morning-india'
+      preLoaderRoute: typeof BrandsGoodMorningIndiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -182,7 +222,9 @@ const rootRouteChildren: RootRouteChildren = {
   DistributorsRoute: DistributorsRoute,
   GalleryRoute: GalleryRoute,
   ProcessRoute: ProcessRoute,
-  ProductsRoute: ProductsRoute,
+  BrandsGoodMorningIndiaRoute: BrandsGoodMorningIndiaRoute,
+  BrandsPreetiRoute: BrandsPreetiRoute,
+  BrandsIndexRoute: BrandsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

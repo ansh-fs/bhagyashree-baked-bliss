@@ -30,58 +30,66 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --color-brand: var(--brand);
-  --color-brand-dark: var(--brand-dark);
-  --color-gold: var(--gold);
-  --color-flour: var(--flour);
   --color-ink: var(--ink);
-  --color-crust: var(--crust);
-  --color-cream: var(--cream);
+  --color-paper: var(--paper);
+  --color-off: var(--off);
+  --color-line: var(--line);
+  --color-mute: var(--mute);
+  --color-accent-red: var(--accent-red);
 
-  --font-display: "Archivo", system-ui, sans-serif;
+  /* Preeti brand tokens */
+  --color-preeti-blue: #1B3A8C;
+  --color-preeti-orange: #E8590C;
+  --color-preeti-gold: #D4A017;
+  --color-preeti-yellow: #F4B942;
+  --color-preeti-red: #C0272D;
+  --color-preeti-tint: #FFF7EA;
+
+  /* Good Morning India brand tokens */
+  --color-gmi-red: #C8102E;
+  --color-gmi-teal: #1A6B6B;
+  --color-gmi-sky: #29ABE2;
+  --color-gmi-blue: #0F4C81;
+  --color-gmi-magenta: #9B2C82;
+  --color-gmi-tint: #FFF3F4;
+
+  --font-display: "Manrope", system-ui, sans-serif;
   --font-sans: "Inter", system-ui, sans-serif;
 }
 
 :root {
-  --radius: 0.375rem;
+  --radius: 0.25rem;
 
-  /* Brand palette — grounded in Indian FMCG bakery packaging language.
-     #C8102E  — Brand red: appetite-driving, the signal color mass-market
-                bread and biscuit brands (Britannia, Modern, Parle) use on pack.
-     #A00D24  — Deeper red for hover/pressed states and heavy type on light bg.
-     #E8A317  — Wheat gold: crust/toast tone, warm without being decorative.
-     #FAF7F2  — Flour white: honest off-white, not a designer cream gradient.
-     #F1EADA  — Cream: subtle section separator, printed-paper feel.
-     #14110F  — Ink: near-black charcoal for confident, packaging-grade type. */
-  --brand: #C8102E;
-  --brand-dark: #A00D24;
-  --gold: #E8A317;
-  --flour: #FAF7F2;
-  --cream: #F1EADA;
-  --ink: #14110F;
-  --crust: #6B3410;
+  /* Neutral corporate shell — Britannia / Parle style.
+     Clean off-white background, near-black text, one restrained red accent. */
+  --ink: #0F0F10;
+  --paper: #FFFFFF;
+  --off: #F7F6F3;
+  --line: #E6E4DE;
+  --mute: #6E6A63;
+  --accent-red: #C8102E;
 
-  --background: #FAF7F2;
-  --foreground: #14110F;
+  --background: #FFFFFF;
+  --foreground: #0F0F10;
 
   --card: #FFFFFF;
-  --card-foreground: #14110F;
+  --card-foreground: #0F0F10;
   --popover: #FFFFFF;
-  --popover-foreground: #14110F;
+  --popover-foreground: #0F0F10;
 
-  --primary: #C8102E;
+  --primary: #0F0F10;
   --primary-foreground: #FFFFFF;
-  --secondary: #F1EADA;
-  --secondary-foreground: #14110F;
-  --muted: #F1EADA;
-  --muted-foreground: #5C554C;
-  --accent: #E8A317;
-  --accent-foreground: #14110F;
-  --destructive: #A00D24;
+  --secondary: #F7F6F3;
+  --secondary-foreground: #0F0F10;
+  --muted: #F7F6F3;
+  --muted-foreground: #6E6A63;
+  --accent: #C8102E;
+  --accent-foreground: #FFFFFF;
+  --destructive: #C8102E;
   --destructive-foreground: #FFFFFF;
-  --border: #E4DED0;
-  --input: #E4DED0;
-  --ring: #C8102E;
+  --border: #E6E4DE;
+  --input: #E6E4DE;
+  --ring: #0F0F10;
 }
 
 @layer base {
@@ -92,16 +100,18 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    font-weight: 800;
-    letter-spacing: -0.015em;
-    line-height: 1.05;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+    color: var(--ink);
   }
 }
 
-/* Photo placeholder block — used until real factory/product photos are provided. */
+/* Honest placeholder for missing real photography. */
 @utility photo-placeholder {
   display: flex;
   align-items: center;
@@ -111,22 +121,32 @@
   background:
     repeating-linear-gradient(
       45deg,
-      #EFE7D4 0 12px,
-      #E7DDC4 12px 24px
+      #F1EEE7 0 12px,
+      #E8E4DA 12px 24px
     );
-  color: #5C554C;
+  color: #6E6A63;
   font-family: var(--font-sans);
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  border: 1px dashed #B9AF95;
-  border-radius: var(--radius);
+  border: 1px dashed #C7C2B4;
+  border-radius: 2px;
 }
 
-@utility rule-red {
-  display: inline-block;
-  width: 2.5rem;
-  height: 3px;
-  background: var(--brand);
+/* GMI diamond-lattice motif, faint — used sparingly on GMI brand page only */
+@utility gmi-lattice {
+  background-image:
+    linear-gradient(45deg, rgba(200,16,46,0.06) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(200,16,46,0.06) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(200,16,46,0.06) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(200,16,46,0.06) 75%);
+  background-size: 22px 22px;
+  background-position: 0 0, 0 11px, 11px -11px, -11px 0;
+}
+
+/* Preeti sunburst radial */
+@utility preeti-sunburst {
+  background:
+    radial-gradient(circle at 50% 40%, #FFE9B8 0%, #FFF7EA 55%, #FFFFFF 100%);
 }
