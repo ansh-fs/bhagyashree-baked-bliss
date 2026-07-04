@@ -1,25 +1,25 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Factory, Truck, ShieldCheck, Clock, ArrowRight, Store, Hotel, Building2, Utensils } from "lucide-react";
+import { ArrowRight, Factory, Truck, ShieldCheck, Clock } from "lucide-react";
 import { SiteHeader, SiteFooter, Placeholder } from "@/components/site-chrome";
-import { BUSINESS, PRODUCT_GROUPS } from "@/lib/business";
+import { BUSINESS, BRANDS } from "@/lib/business";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Bhagyashree Food Products — Wholesale Bread, Rusk, Buns & Biscuits, Moradabad" },
-      { name: "description", content: "Moradabad-based wholesale bakery manufacturer supplying bread, rusk, buns and biscuits daily to retailers, distributors, super markets, hotels and institutions across Uttar Pradesh. Est. 2014. MSME/Udyam registered. 24/7 production." },
-      { property: "og:title", content: "Bhagyashree Food Products — Wholesale Bakery Manufacturer, Moradabad" },
-      { property: "og:description", content: "Daily supply of bread, rusk, buns and biscuits to retailers, distributors and institutions across UP. Est. 2014, 24/7 production." },
+      { title: "Bhagyashree Food Products — Bakery Manufacturer, Moradabad · Preeti & Good Morning India" },
+      { name: "description", content: "Bhagyashree Food Products is a Moradabad-based bakery manufacturer. Home to two brands — Preeti (rusk, biscuits, suji toast) and Good Morning India (bread). Supplying retailers, distributors, hotels and institutions since 2012." },
+      { property: "og:title", content: "Bhagyashree Food Products — Moradabad Bakery Manufacturer" },
+      { property: "og:description", content: "Two brands, one manufacturer. Preeti rusk & biscuits. Good Morning India bread. Est. 2012." },
     ],
   }),
   component: Home,
 });
 
-const HIGHLIGHTS = [
-  { icon: Clock, title: "24×7 Production", body: "Continuous three-shift operation ensures morning-fresh dispatch, every day of the year." },
-  { icon: Truck, title: "Reliable Distribution", body: "Route-based delivery to retailers and distributors across Moradabad and neighbouring districts." },
-  { icon: ShieldCheck, title: "Compliant & Registered", body: `GSTIN, Udyam/MSME and FSSAI registered. Documented hygiene protocols on every line.` },
-  { icon: Factory, title: "Purpose-Built Facility", body: "Dedicated bakery unit on Delhi Road, Moradabad — engineered for volume, not a converted kitchen." },
+const PILLARS = [
+  { icon: Clock, title: "24×7 Production", body: "Three-shift operation with morning-fresh dispatch, every day of the year." },
+  { icon: Truck, title: "Route-based Distribution", body: "First-light deliveries across Moradabad and neighbouring districts." },
+  { icon: ShieldCheck, title: "Fully Registered", body: `FSSAI, GSTIN & MSME/Udyam registered. Documented hygiene on every line.` },
+  { icon: Factory, title: "Purpose-built Facility", body: "A dedicated bakery unit on Delhi Road — engineered for volume." },
 ];
 
 function Home() {
@@ -27,85 +27,71 @@ function Home() {
     <>
       <SiteHeader />
       <main>
-        {/* HERO */}
-        <section className="bg-flour border-b border-ink/10">
-          <div className="mx-auto max-w-7xl px-4 py-16 md:py-24 grid gap-12 lg:grid-cols-12 items-center">
+        {/* HERO — clean corporate, minimal color */}
+        <section className="bg-white">
+          <div className="mx-auto max-w-7xl px-4 py-20 md:py-28 grid gap-12 lg:grid-cols-12 items-center">
             <div className="lg:col-span-7">
-              <div className="flex items-center gap-3 mb-5">
-                <span className="rule-red" />
-                <span className="text-xs font-bold tracking-[0.2em] text-brand uppercase">
-                  Wholesale Bakery Manufacturer · Est. {BUSINESS.since}
-                </span>
+              <div className="text-[11px] font-semibold tracking-[0.22em] text-accent-red uppercase mb-5">
+                Bakery Manufacturer · Moradabad · Est. {BUSINESS.since}
               </div>
-              <h1 className="font-display text-4xl md:text-6xl lg:text-7xl text-ink leading-[1.02]">
-                Fresh bread, rusk & buns —<br />
-                <span className="text-brand">delivered daily</span> across Uttar Pradesh.
+              <h1 className="font-display text-4xl md:text-6xl lg:text-[68px] text-ink leading-[1.02] tracking-tight">
+                Two trusted bakery brands,<br />
+                <span className="text-mute">one dependable manufacturer.</span>
               </h1>
-              <p className="mt-6 text-lg text-ink/70 max-w-2xl">
-                Bhagyashree Food Products is a Moradabad-based B2B bakery manufacturer supplying retailers, distributors, super markets, hotels and institutional buyers — with morning-fresh dispatch, 24×7 production and honest, consistent quality.
+              <p className="mt-7 text-lg text-mute max-w-2xl leading-relaxed">
+                Bhagyashree Food Products is the manufacturer behind <strong className="text-ink font-semibold">Preeti</strong> rusk &amp; biscuits and <strong className="text-ink font-semibold">Good Morning India</strong> bread — supplied fresh, daily, to retailers, distributors, super markets and institutions across the region.
               </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link to="/distributors" className="inline-flex items-center gap-2 bg-brand hover:bg-brand-dark text-white font-semibold px-6 py-3.5 rounded-sm transition-colors">
-                  Become a Distributor <ArrowRight size={18} />
+              <div className="mt-9 flex flex-wrap gap-3">
+                <Link to="/brands" className="inline-flex items-center gap-2 bg-ink hover:bg-black text-white font-semibold px-6 py-3.5 rounded-sm transition-colors">
+                  Explore our brands <ArrowRight size={17} />
                 </Link>
-                <Link to="/products" className="inline-flex items-center gap-2 border-2 border-ink text-ink hover:bg-ink hover:text-flour font-semibold px-6 py-3.5 rounded-sm transition-colors">
-                  View Product Range
+                <Link to="/distributors" className="inline-flex items-center gap-2 border border-ink text-ink hover:bg-ink hover:text-white font-semibold px-6 py-3.5 rounded-sm transition-colors">
+                  Become a distributor
                 </Link>
               </div>
             </div>
             <div className="lg:col-span-5">
-              <Placeholder label="Factory exterior / hero shot" className="aspect-[4/5]" />
+              <Placeholder label="Factory exterior / signage" className="aspect-[4/5]" />
             </div>
           </div>
         </section>
 
-        {/* TRUST STRIP */}
-        <section className="bg-ink text-flour">
-          <div className="mx-auto max-w-7xl px-4 py-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center md:text-left">
-            <div><div className="text-[10px] tracking-[0.2em] text-gold font-bold">EST.</div><div className="font-display text-xl font-black text-white">{BUSINESS.since}</div></div>
-            <div><div className="text-[10px] tracking-[0.2em] text-gold font-bold">GSTIN</div><div className="font-mono text-xs md:text-sm text-white">{BUSINESS.gstin}</div></div>
-            <div><div className="text-[10px] tracking-[0.2em] text-gold font-bold">UDYAM / MSME</div><div className="font-mono text-xs md:text-sm text-white">{BUSINESS.udyam}</div></div>
-            <div><div className="text-[10px] tracking-[0.2em] text-gold font-bold">FSSAI</div><div className="font-mono text-xs md:text-sm text-white">{BUSINESS.fssai}</div></div>
-          </div>
-        </section>
-
-        {/* HIGHLIGHTS */}
-        <section className="py-20">
-          <div className="mx-auto max-w-7xl px-4">
-            <div className="max-w-2xl mb-12">
-              <div className="flex items-center gap-3 mb-3"><span className="rule-red" /><span className="text-xs font-bold tracking-[0.2em] text-brand uppercase">Why Choose Us</span></div>
-              <h2 className="font-display text-3xl md:text-4xl text-ink">Built for B2B supply, not retail counters.</h2>
-            </div>
-            <div className="grid gap-px bg-ink/10 border border-ink/10 md:grid-cols-2 lg:grid-cols-4">
-              {HIGHLIGHTS.map((h) => (
-                <div key={h.title} className="bg-flour p-7">
-                  <h.icon className="text-brand" size={26} />
-                  <h3 className="font-display text-lg mt-5 text-ink">{h.title}</h3>
-                  <p className="mt-2 text-sm text-ink/70 leading-relaxed">{h.body}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* PRODUCT CATEGORIES PREVIEW */}
-        <section className="py-20 bg-cream">
-          <div className="mx-auto max-w-7xl px-4">
-            <div className="flex items-end justify-between flex-wrap gap-6 mb-10">
+        {/* OUR BRANDS PREVIEW — the anchor of a Britannia-style site */}
+        <section className="bg-off border-y border-line">
+          <div className="mx-auto max-w-7xl px-4 py-20">
+            <div className="flex items-end justify-between flex-wrap gap-4 mb-12">
               <div>
-                <div className="flex items-center gap-3 mb-3"><span className="rule-red" /><span className="text-xs font-bold tracking-[0.2em] text-brand uppercase">Product Range</span></div>
-                <h2 className="font-display text-3xl md:text-4xl text-ink">Four categories, one dependable supplier.</h2>
+                <div className="text-[11px] font-semibold tracking-[0.22em] text-accent-red uppercase mb-3">Our Brands</div>
+                <h2 className="font-display text-3xl md:text-5xl text-ink tracking-tight">Made under two names you know.</h2>
               </div>
-              <Link to="/products" className="text-sm font-bold text-brand hover:text-brand-dark inline-flex items-center gap-1">View full catalogue <ArrowRight size={16} /></Link>
+              <Link to="/brands" className="text-sm font-semibold text-ink hover:text-accent-red inline-flex items-center gap-1.5">
+                Visit brand hub <ArrowRight size={15} />
+              </Link>
             </div>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-              {PRODUCT_GROUPS.map((g) => (
-                <Link key={g.slug} to="/products" hash={g.slug} className="group bg-white border border-ink/10 hover:border-brand transition-colors">
-                  <Placeholder label={`${g.title} category shot`} className="aspect-[4/3]" />
-                  <div className="p-5">
-                    <h3 className="font-display text-xl text-ink group-hover:text-brand transition-colors">{g.title}</h3>
-                    <p className="mt-2 text-sm text-ink/70">{g.tagline}</p>
-                    <div className="mt-3 text-xs text-ink/50">{g.items.length} SKUs</div>
+            <div className="grid gap-6 md:grid-cols-2">
+              {BRANDS.map((b) => (
+                <Link
+                  key={b.slug}
+                  to={b.slug === "preeti" ? "/brands/preeti" : "/brands/good-morning-india"}
+                  className="group bg-white border border-line hover:border-ink transition-colors overflow-hidden flex flex-col"
+                >
+                  <div
+                    className="h-56 md:h-64 grid place-items-center px-8 border-b border-line"
+                    style={{ background: b.tint }}
+                  >
+                    <img src={b.logo} alt={`${b.name} logo`} className="max-h-full max-w-[70%] object-contain" />
+                  </div>
+                  <div className="p-7 flex-1 flex flex-col">
+                    <h3 className="font-display text-2xl text-ink">{b.name}</h3>
+                    <p className="mt-2 text-mute text-[15px] leading-relaxed flex-1">{b.tagline}</p>
+                    <div className="mt-5 flex flex-wrap gap-2">
+                      {b.categories.map((c) => (
+                        <span key={c} className="text-[11px] font-semibold px-2.5 py-1 border border-line text-ink/80 uppercase tracking-wider">{c}</span>
+                      ))}
+                    </div>
+                    <div className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-ink group-hover:text-accent-red">
+                      Explore {b.name} <ArrowRight size={15} />
+                    </div>
                   </div>
                 </Link>
               ))}
@@ -113,43 +99,54 @@ function Home() {
           </div>
         </section>
 
-        {/* BUYER TYPES */}
+        {/* PILLARS */}
         <section className="py-20">
           <div className="mx-auto max-w-7xl px-4">
-            <div className="max-w-2xl mb-10">
-              <div className="flex items-center gap-3 mb-3"><span className="rule-red" /><span className="text-xs font-bold tracking-[0.2em] text-brand uppercase">Who We Supply</span></div>
-              <h2 className="font-display text-3xl md:text-4xl text-ink">Trusted by buyers across the trade.</h2>
+            <div className="max-w-2xl mb-14">
+              <div className="text-[11px] font-semibold tracking-[0.22em] text-accent-red uppercase mb-3">Why buyers choose us</div>
+              <h2 className="font-display text-3xl md:text-5xl text-ink tracking-tight">Built for supply, not for the shelf.</h2>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {[
-                { icon: Store, label: "Retail Stores & Kirana" },
-                { icon: Truck, label: "Wholesalers & Distributors" },
-                { icon: Building2, label: "Super Markets" },
-                { icon: Hotel, label: "Hotels & Restaurants" },
-                { icon: Utensils, label: "Caterers & QSRs" },
-                { icon: Building2, label: "Institutional Buyers" },
-                { icon: Building2, label: "Schools & Hostels" },
-                { icon: Building2, label: "Corporate Canteens" },
-              ].map((b) => (
-                <div key={b.label} className="border border-ink/10 bg-flour p-5 flex items-center gap-3">
-                  <b.icon className="text-brand shrink-0" size={22} />
-                  <span className="text-sm font-semibold text-ink">{b.label}</span>
+            <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+              {PILLARS.map((h) => (
+                <div key={h.title} className="border-t border-ink pt-6">
+                  <h.icon className="text-ink" size={22} strokeWidth={1.75} />
+                  <h3 className="font-display text-lg mt-4 text-ink">{h.title}</h3>
+                  <p className="mt-2 text-sm text-mute leading-relaxed">{h.body}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
+        {/* CREDENTIALS STRIP — real numbers only */}
+        <section className="bg-off border-y border-line">
+          <div className="mx-auto max-w-7xl px-4 py-10 grid grid-cols-2 md:grid-cols-4 gap-6">
+            {[
+              { k: "Established", v: BUSINESS.since },
+              { k: "GSTIN", v: BUSINESS.gstin },
+              { k: "Udyam / MSME", v: BUSINESS.udyam },
+              { k: "FSSAI Lic. No.", v: BUSINESS.fssai },
+            ].map((r) => (
+              <div key={r.k}>
+                <div className="text-[10px] tracking-[0.22em] text-mute uppercase font-semibold">{r.k}</div>
+                <div className="mt-1.5 font-mono text-[13px] md:text-sm text-ink break-all">{r.v}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* CTA */}
-        <section className="bg-brand text-white">
-          <div className="mx-auto max-w-7xl px-4 py-16 md:py-20 grid gap-8 md:grid-cols-3 items-center">
+        <section className="bg-ink text-white">
+          <div className="mx-auto max-w-7xl px-4 py-20 grid gap-8 md:grid-cols-3 items-center">
             <div className="md:col-span-2">
-              <h2 className="font-display text-3xl md:text-4xl">Interested in stocking our range?</h2>
-              <p className="mt-3 text-white/85 max-w-2xl">Share your business details and estimated volume. Our team will revert with product samples, wholesale rates and delivery scheduling for your route.</p>
+              <h2 className="font-display text-3xl md:text-4xl tracking-tight">Interested in stocking Preeti or Good Morning India?</h2>
+              <p className="mt-4 text-white/70 max-w-2xl leading-relaxed">
+                Share your business details and estimated monthly volume. Our team will revert with product samples, wholesale rates and delivery scheduling for your route.
+              </p>
             </div>
             <div className="md:text-right">
-              <Link to="/distributors" className="inline-flex items-center gap-2 bg-white text-brand font-bold px-6 py-3.5 rounded-sm hover:bg-ink hover:text-white transition-colors">
-                Start Distributor Enquiry <ArrowRight size={18} />
+              <Link to="/distributors" className="inline-flex items-center gap-2 bg-white text-ink font-bold px-6 py-3.5 rounded-sm hover:bg-white/90 transition-colors">
+                Start enquiry <ArrowRight size={17} />
               </Link>
             </div>
           </div>
