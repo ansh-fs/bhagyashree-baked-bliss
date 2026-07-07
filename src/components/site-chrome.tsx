@@ -98,52 +98,57 @@ export function SiteHeader() {
 
 export function SiteFooter() {
   return (
-    <footer className="bg-ink text-white/75 mt-24">
+    <footer className="mt-24 text-ink" style={{ background: "var(--accent-yellow)" }}>
       <div className="mx-auto max-w-7xl px-4 py-14 grid gap-10 md:grid-cols-4">
         <div className="md:col-span-2">
           <div className="flex items-center gap-3">
-            <span className="w-10 h-10 grid place-items-center bg-white text-ink font-display font-extrabold text-lg rounded-sm">B</span>
+            <span
+              className="w-12 h-12 grid place-items-center text-white font-display text-xl rounded-md"
+              style={{ background: "var(--accent-red)" }}
+            >
+              B
+            </span>
             <span className="flex flex-col leading-tight">
-              <span className="font-display font-extrabold text-white text-lg">Bhagyashree Food Products</span>
-              <span className="text-[10px] tracking-[0.18em] text-white/50 font-semibold uppercase">Moradabad · Est. {BUSINESS.since}</span>
+              <span className="font-display text-ink text-lg">BHAGYASHREE FOOD PRODUCTS</span>
+              <span className="text-[10px] tracking-[0.22em] text-ink/60 font-bold uppercase">Moradabad · Est. {BUSINESS.since}</span>
             </span>
           </div>
-          <p className="mt-5 text-sm max-w-md text-white/60 leading-relaxed">
+          <p className="mt-5 text-sm max-w-md text-ink/75 leading-relaxed">
             A Moradabad-based wholesale bakery manufacturer supplying two flagship brands —
             Preeti (rusk, biscuits, suji toast) and Good Morning India (bread) — to retailers,
             distributors, super markets, hotels and institutions across the region.
           </p>
-          <div className="mt-5 text-[11px] space-y-1 text-white/50 font-mono">
+          <div className="mt-5 text-[11px] space-y-1 text-ink/70 font-mono">
             <div>GSTIN: {BUSINESS.gstin}</div>
             <div>Udyam: {BUSINESS.udyam}</div>
             <div>FSSAI Lic. No.: {BUSINESS.fssai}</div>
           </div>
         </div>
         <div>
-          <h4 className="font-display font-semibold text-white text-sm">Company</h4>
+          <h4 className="font-display text-ink text-sm uppercase tracking-wider">Explore</h4>
           <ul className="mt-4 space-y-2.5 text-sm">
             {NAV.map((n) => (
               <li key={n.to}>
-                <Link to={n.to} className="text-white/70 hover:text-white transition-colors">{n.label}</Link>
+                <Link to={n.to} className="text-ink/75 hover:text-accent-red font-medium transition-colors">{n.label}</Link>
               </li>
             ))}
           </ul>
         </div>
         <div>
-          <h4 className="font-display font-semibold text-white text-sm">Contact</h4>
-          <ul className="mt-4 space-y-2.5 text-sm text-white/70">
+          <h4 className="font-display text-ink text-sm uppercase tracking-wider">Contact</h4>
+          <ul className="mt-4 space-y-2.5 text-sm text-ink/80">
             <li>{BUSINESS.addressFull}</li>
             <li>
-              <a href={`tel:${BUSINESS.phoneRaw}`} className="hover:text-white">{BUSINESS.phone}</a>
+              <a href={`tel:${BUSINESS.phoneRaw}`} className="hover:text-accent-red font-semibold">{BUSINESS.phone}</a>
             </li>
             <li className="break-all">
-              <a href={`mailto:${BUSINESS.email}`} className="hover:text-white">{BUSINESS.email}</a>
+              <a href={`mailto:${BUSINESS.email}`} className="hover:text-accent-red font-semibold">{BUSINESS.email}</a>
             </li>
           </ul>
         </div>
       </div>
-      <div className="border-t border-white/10">
-        <div className="mx-auto max-w-7xl px-4 py-4 text-[11px] text-white/45 flex flex-wrap justify-between gap-2">
+      <div className="border-t border-ink/15">
+        <div className="mx-auto max-w-7xl px-4 py-4 text-[11px] text-ink/60 flex flex-wrap justify-between gap-2 font-semibold">
           <span>© {new Date().getFullYear()} {BUSINESS.name}. All rights reserved.</span>
           <span>Moradabad, Uttar Pradesh · India</span>
         </div>
