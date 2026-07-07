@@ -17,29 +17,34 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-line">
-      <div className="bg-ink text-white/80 text-[11px]">
+      <div className="text-white text-[11px]" style={{ background: "var(--accent-red)" }}>
         <div className="mx-auto max-w-7xl px-4 py-1.5 flex flex-wrap justify-between gap-x-4 gap-y-1">
-          <span>{BUSINESS.city}, U.P. · Est. {BUSINESS.since} · 24×7 Production</span>
+          <span className="font-semibold tracking-wide">{BUSINESS.city}, U.P. · Est. {BUSINESS.since} · 24×7 Production</span>
           <span className="hidden sm:inline">
             {BUSINESS.phone} · {BUSINESS.email}
           </span>
         </div>
       </div>
-      <div className="mx-auto max-w-7xl px-4 h-[68px] flex items-center justify-between">
+      <div className="mx-auto max-w-7xl px-4 h-[76px] flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3 group">
-          <span className="w-10 h-10 grid place-items-center bg-ink text-white font-display font-extrabold text-lg rounded-sm">B</span>
+          <span
+            className="w-12 h-12 grid place-items-center text-white font-display text-xl rounded-md shadow-sm"
+            style={{ background: "linear-gradient(180deg, var(--accent-red) 0%, #B10510 100%)" }}
+          >
+            B
+          </span>
           <span className="flex flex-col leading-tight">
-            <span className="font-display font-extrabold text-[16px] text-ink tracking-tight">Bhagyashree</span>
-            <span className="text-[10px] tracking-[0.16em] text-mute font-semibold uppercase">Food Products</span>
+            <span className="font-display text-[17px] text-ink tracking-tight">BHAGYASHREE</span>
+            <span className="text-[10px] tracking-[0.22em] text-mute font-bold uppercase">Food Products</span>
           </span>
         </Link>
-        <nav className="hidden lg:flex items-center gap-6">
+        <nav className="hidden lg:flex items-center gap-7">
           {NAV.map((n) => (
             <Link
               key={n.to}
               to={n.to}
               activeOptions={{ exact: n.to === "/" }}
-              className="text-[13.5px] font-medium text-ink/80 hover:text-ink transition-colors data-[status=active]:text-ink data-[status=active]:font-semibold"
+              className="text-[13px] font-bold uppercase tracking-wider text-ink/75 hover:text-accent-red transition-colors data-[status=active]:text-accent-red"
             >
               {n.label}
             </Link>
@@ -48,7 +53,8 @@ export function SiteHeader() {
         <div className="flex items-center gap-2">
           <Link
             to="/distributors"
-            className="hidden md:inline-flex items-center bg-ink hover:bg-black text-white text-[13px] font-semibold px-4 py-2.5 rounded-sm transition-colors"
+            className="hidden md:inline-flex items-center text-white text-[13px] font-bold uppercase tracking-wider px-5 py-2.5 rounded-full transition-transform hover:scale-[1.03] shadow-md"
+            style={{ background: "var(--accent-red)" }}
           >
             Enquire Now
           </Link>
@@ -78,7 +84,8 @@ export function SiteHeader() {
             <Link
               to="/distributors"
               onClick={() => setOpen(false)}
-              className="mt-3 text-center bg-ink text-white font-semibold text-sm px-4 py-3 rounded-sm"
+              className="mt-3 text-center text-white font-bold text-sm px-4 py-3 rounded-full"
+              style={{ background: "var(--accent-red)" }}
             >
               Enquire Now
             </Link>
