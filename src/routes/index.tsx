@@ -27,31 +27,34 @@ function Home() {
     <>
       <SiteHeader />
       <main>
-        {/* HERO — clean corporate, minimal color */}
-        <section className="bg-white">
-          <div className="mx-auto max-w-7xl px-4 py-20 md:py-28 grid gap-12 lg:grid-cols-12 items-center">
+        {/* HERO — Britannia-style cream + bold red */}
+        <section className="relative overflow-hidden" style={{ background: "var(--off)" }}>
+          <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: "radial-gradient(circle at 20% 30%, var(--accent-red) 2px, transparent 2px), radial-gradient(circle at 70% 70%, var(--accent-red) 2px, transparent 2px)", backgroundSize: "40px 40px" }} />
+          <div className="mx-auto max-w-7xl px-4 py-20 md:py-28 grid gap-12 lg:grid-cols-12 items-center relative">
             <div className="lg:col-span-7">
-              <div className="text-[11px] font-semibold tracking-[0.22em] text-accent-red uppercase mb-5">
-                Bakery Manufacturer · Moradabad · Est. {BUSINESS.since}
+              <div className="inline-block text-white text-[11px] font-bold tracking-[0.22em] uppercase mb-5 px-3 py-1.5 rounded-full" style={{ background: "var(--accent-red)" }}>
+                Bakery Manufacturer · Est. {BUSINESS.since}
               </div>
-              <h1 className="font-display text-4xl md:text-6xl lg:text-[68px] text-ink leading-[1.02] tracking-tight">
-                Two trusted bakery brands,<br />
-                <span className="text-mute">one dependable manufacturer.</span>
+              <h1 className="font-display text-4xl md:text-6xl lg:text-[76px] leading-[1] tracking-tight uppercase" style={{ color: "var(--accent-red)" }}>
+                Baked Fresh.<br />
+                <span className="text-ink">Delivered Daily.</span>
               </h1>
-              <p className="mt-7 text-lg text-mute max-w-2xl leading-relaxed">
-                Bhagyashree Food Products is the manufacturer behind <strong className="text-ink font-semibold">Preeti</strong> rusk &amp; biscuits and <strong className="text-ink font-semibold">Good Morning India</strong> bread — supplied fresh, daily, to retailers, distributors, super markets and institutions across the region.
+              <p className="mt-7 text-lg text-ink/75 max-w-2xl leading-relaxed">
+                Bhagyashree Food Products is the Moradabad manufacturer behind <strong className="text-accent-red">Preeti</strong> rusk &amp; biscuits and <strong className="text-accent-red">Good Morning India</strong> bread — supplied fresh, daily, to retailers, distributors, super markets and institutions across the region.
               </p>
               <div className="mt-9 flex flex-wrap gap-3">
-                <Link to="/brands" className="inline-flex items-center gap-2 bg-ink hover:bg-black text-white font-semibold px-6 py-3.5 rounded-sm transition-colors">
+                <Link to="/brands" className="inline-flex items-center gap-2 text-white font-bold uppercase tracking-wider text-sm px-6 py-3.5 rounded-full transition-transform hover:scale-[1.03] shadow-md" style={{ background: "var(--accent-red)" }}>
                   Explore our brands <ArrowRight size={17} />
                 </Link>
-                <Link to="/distributors" className="inline-flex items-center gap-2 border border-ink text-ink hover:bg-ink hover:text-white font-semibold px-6 py-3.5 rounded-sm transition-colors">
+                <Link to="/distributors" className="inline-flex items-center gap-2 border-2 border-ink text-ink hover:bg-ink hover:text-white font-bold uppercase tracking-wider text-sm px-6 py-3.5 rounded-full transition-colors">
                   Become a distributor
                 </Link>
               </div>
             </div>
             <div className="lg:col-span-5">
-              <Placeholder label="Factory exterior / signage" className="aspect-[4/5]" />
+              <div className="rounded-3xl overflow-hidden shadow-xl border-4 border-white">
+                <Placeholder label="Factory exterior / signage" className="aspect-[4/5] border-0 rounded-none" />
+              </div>
             </div>
           </div>
         </section>
@@ -62,7 +65,7 @@ function Home() {
             <div className="flex items-end justify-between flex-wrap gap-4 mb-12">
               <div>
                 <div className="text-[11px] font-semibold tracking-[0.22em] text-accent-red uppercase mb-3">Our Brands</div>
-                <h2 className="font-display text-3xl md:text-5xl text-ink tracking-tight">Made under two names you know.</h2>
+                <h2 className="font-display text-3xl md:text-5xl tracking-tight uppercase" style={{ color: "var(--accent-red)" }}>Our Brands</h2>
               </div>
               <Link to="/brands" className="text-sm font-semibold text-ink hover:text-accent-red inline-flex items-center gap-1.5">
                 Visit brand hub <ArrowRight size={15} />
@@ -104,7 +107,7 @@ function Home() {
           <div className="mx-auto max-w-7xl px-4">
             <div className="max-w-2xl mb-14">
               <div className="text-[11px] font-semibold tracking-[0.22em] text-accent-red uppercase mb-3">Why buyers choose us</div>
-              <h2 className="font-display text-3xl md:text-5xl text-ink tracking-tight">Built for supply, not for the shelf.</h2>
+              <h2 className="font-display text-3xl md:text-5xl tracking-tight uppercase" style={{ color: "var(--accent-red)" }}>Built for supply.</h2>
             </div>
             <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
               {PILLARS.map((h) => (
@@ -136,16 +139,16 @@ function Home() {
         </section>
 
         {/* CTA */}
-        <section className="bg-ink text-white">
+        <section className="text-white" style={{ background: "var(--accent-red)" }}>
           <div className="mx-auto max-w-7xl px-4 py-20 grid gap-8 md:grid-cols-3 items-center">
             <div className="md:col-span-2">
-              <h2 className="font-display text-3xl md:text-4xl tracking-tight">Interested in stocking Preeti or Good Morning India?</h2>
-              <p className="mt-4 text-white/70 max-w-2xl leading-relaxed">
+              <h2 className="font-display text-3xl md:text-5xl tracking-tight uppercase text-white">Stock Preeti or Good Morning India?</h2>
+              <p className="mt-4 text-white/85 max-w-2xl leading-relaxed">
                 Share your business details and estimated monthly volume. Our team will revert with product samples, wholesale rates and delivery scheduling for your route.
               </p>
             </div>
             <div className="md:text-right">
-              <Link to="/distributors" className="inline-flex items-center gap-2 bg-white text-ink font-bold px-6 py-3.5 rounded-sm hover:bg-white/90 transition-colors">
+              <Link to="/distributors" className="inline-flex items-center gap-2 bg-white text-accent-red font-bold uppercase tracking-wider text-sm px-6 py-3.5 rounded-full hover:scale-[1.03] transition-transform shadow-lg">
                 Start enquiry <ArrowRight size={17} />
               </Link>
             </div>
