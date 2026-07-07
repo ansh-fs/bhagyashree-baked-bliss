@@ -53,7 +53,7 @@
   --color-gmi-magenta: #9B2C82;
   --color-gmi-tint: #FFF3F4;
 
-  --font-display: "Manrope", system-ui, sans-serif;
+  --font-display: "Archivo Black", "Anton", system-ui, sans-serif;
   --font-sans: "Inter", system-ui, sans-serif;
 }
 
@@ -62,12 +62,16 @@
 
   /* Neutral corporate shell — Britannia / Parle style.
      Clean off-white background, near-black text, one restrained red accent. */
-  --ink: #0F0F10;
+  --ink: #1A1206;
   --paper: #FFFFFF;
-  --off: #F7F6F3;
-  --line: #E6E4DE;
-  --mute: #6E6A63;
-  --accent-red: #C8102E;
+  --off: #FBF3DC;         /* Britannia-style warm cream */
+  --line: #EFE4C4;
+  --mute: #6B5A3E;
+  --accent-red: #E30613;  /* bakery brand red */
+  --accent-yellow: #FFC72C;
+  --accent-green: #1E9E4A;
+
+
 
   --background: #FFFFFF;
   --foreground: #0F0F10;
