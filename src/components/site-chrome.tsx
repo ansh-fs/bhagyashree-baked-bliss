@@ -167,18 +167,18 @@ export function PageHero({
   subtitle?: string;
 }) {
   return (
-    <section className="bg-white border-b border-line">
-      <div className="mx-auto max-w-7xl px-4 py-16 md:py-20">
+    <section className="border-b border-line" style={{ background: "var(--off)" }}>
+      <div className="mx-auto max-w-7xl px-4 py-16 md:py-24 text-center">
         {eyebrow && (
-          <div className="text-[11px] font-semibold tracking-[0.2em] text-accent-red uppercase mb-4">
+          <div className="text-[11px] font-bold tracking-[0.24em] text-accent-red uppercase mb-5">
             {eyebrow}
           </div>
         )}
-        <h1 className="font-display text-4xl md:text-5xl lg:text-[56px] text-ink max-w-4xl tracking-tight">
+        <h1 className="font-display text-4xl md:text-6xl lg:text-[72px] max-w-5xl mx-auto tracking-tight uppercase" style={{ color: "var(--accent-red)" }}>
           {title}
         </h1>
         {subtitle && (
-          <p className="mt-6 text-base md:text-lg text-mute max-w-2xl leading-relaxed">
+          <p className="mt-6 text-base md:text-lg text-ink/70 max-w-2xl mx-auto leading-relaxed">
             {subtitle}
           </p>
         )}
