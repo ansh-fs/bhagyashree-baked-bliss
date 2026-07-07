@@ -65,7 +65,7 @@ function Home() {
             <div className="flex items-end justify-between flex-wrap gap-4 mb-12">
               <div>
                 <div className="text-[11px] font-semibold tracking-[0.22em] text-accent-red uppercase mb-3">Our Brands</div>
-                <h2 className="font-display text-3xl md:text-5xl text-ink tracking-tight">Made under two names you know.</h2>
+                <h2 className="font-display text-3xl md:text-5xl tracking-tight uppercase" style={{ color: "var(--accent-red)" }}>Our Brands</h2>
               </div>
               <Link to="/brands" className="text-sm font-semibold text-ink hover:text-accent-red inline-flex items-center gap-1.5">
                 Visit brand hub <ArrowRight size={15} />
@@ -107,7 +107,7 @@ function Home() {
           <div className="mx-auto max-w-7xl px-4">
             <div className="max-w-2xl mb-14">
               <div className="text-[11px] font-semibold tracking-[0.22em] text-accent-red uppercase mb-3">Why buyers choose us</div>
-              <h2 className="font-display text-3xl md:text-5xl text-ink tracking-tight">Built for supply, not for the shelf.</h2>
+              <h2 className="font-display text-3xl md:text-5xl tracking-tight uppercase" style={{ color: "var(--accent-red)" }}>Built for supply.</h2>
             </div>
             <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
               {PILLARS.map((h) => (
@@ -139,16 +139,16 @@ function Home() {
         </section>
 
         {/* CTA */}
-        <section className="bg-ink text-white">
+        <section className="text-white" style={{ background: "var(--accent-red)" }}>
           <div className="mx-auto max-w-7xl px-4 py-20 grid gap-8 md:grid-cols-3 items-center">
             <div className="md:col-span-2">
-              <h2 className="font-display text-3xl md:text-4xl tracking-tight">Interested in stocking Preeti or Good Morning India?</h2>
-              <p className="mt-4 text-white/70 max-w-2xl leading-relaxed">
+              <h2 className="font-display text-3xl md:text-5xl tracking-tight uppercase text-white">Stock Preeti or Good Morning India?</h2>
+              <p className="mt-4 text-white/85 max-w-2xl leading-relaxed">
                 Share your business details and estimated monthly volume. Our team will revert with product samples, wholesale rates and delivery scheduling for your route.
               </p>
             </div>
             <div className="md:text-right">
-              <Link to="/distributors" className="inline-flex items-center gap-2 bg-white text-ink font-bold px-6 py-3.5 rounded-sm hover:bg-white/90 transition-colors">
+              <Link to="/distributors" className="inline-flex items-center gap-2 bg-white text-accent-red font-bold uppercase tracking-wider text-sm px-6 py-3.5 rounded-full hover:scale-[1.03] transition-transform shadow-lg">
                 Start enquiry <ArrowRight size={17} />
               </Link>
             </div>
